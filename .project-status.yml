@@ -1,9 +1,9 @@
 project:
   name: bb-unified-election-data
-  description: ''
-  tools: []
-  current_focus: ''
-  needs: []
+  description: 'A framework for standardizing sub-county election data and analyzing geographic shifts across redistricting cycles.'
+  tools: ["SQL", "Python", "GIS Tools", "Data Visualization"]
+  current_focus: 'Establishing data standards and scoping initial pilot territory.'
+  needs: ["Data Engineering", "Geospatial Analysis", "Technical Documentation"]
   links:
     docs: ''
     staging: ''
