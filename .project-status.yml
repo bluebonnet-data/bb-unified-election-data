@@ -1,17 +1,17 @@
 project:
-  name: ""
-  description: ""
+  name: bb-unified-election-data
+  description: ''
   tools: []
-  current_focus: ""
+  current_focus: ''
   needs: []
   links:
-    docs: ""
-    staging: ""
-    production: ""
+    docs: ''
+    staging: ''
+    production: ''
   team:
-    lead: ""
+    lead: pauldingus
     contributors: []
   campaign:
-    candidate: ""
-    office: ""
+    candidate: ''
+    office: ''
   auto_refresh: true
