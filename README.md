@@ -2,6 +2,18 @@
 
 This repository was created by the [Bluebonnet Data Project Hub](https://hub.bluebonnetdata.org) to support a campaign data project.
 
+# Unified Election Data
+
+## Project Overview
+This project will provide the database, mapping tools, and analysis to quantify the impact on precinct-level composition after redistricting. Initially focused on the Texas, this project will be designed as a scalable framework for national election data standardization.
+
+## The Problem
+Election results and legislative boundaries are fragmented. Because precinct shapes and district lines change at different intervals, it is difficult to perform accurate historical comparisons. This project aims to solves this by ...
+
+## Background 
+For a full list of research and methodology papers, see our [Reading List](./docs/reading-list.md).
+
+--------------------------
 ## Getting Started
 
 1. Clone this repo and start building in the `src/` directory
