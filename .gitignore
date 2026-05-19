@@ -1,38 +1,21 @@
+# Large data files
+*.shp
+*.dbf
+*.shx
+*.prj
+*.cpg
+*.geojson
+*.gpkg
+
 # Python
 __pycache__/
-*.py[cod]
-*.so
-.venv/
-venv/
-env/
-
-# Environment
+*.pyc
 .env
-.env.local
-
-# Data
-*.csv
-*.xlsx
-*.db
-*.sqlite3
-data/*.csv
-data/*.xlsx
+*.egg-info/
+dist/
 
 # Jupyter
 .ipynb_checkpoints/
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
+# Mac
 .DS_Store
-Thumbs.db
-
-# Build
-dist/
-build/
-*.egg-info/
