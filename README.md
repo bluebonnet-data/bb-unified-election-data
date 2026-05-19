@@ -1,49 +1,43 @@
-# Campaign Repository
+# Bluebonnet Unified Election Data — Spatial Continuity Engine
 
-This repository was created by the [Bluebonnet Data Project Hub](https://hub.bluebonnetdata.org) to support a campaign data project.
+## What this project does
 
-# Unified Election Data
+When legislative boundaries change after redistricting, the link between 
+historical votes and geographic regions breaks. This project builds a 
+data pipeline that fixes that problem.
 
-## Project Overview
-This project will provide the database, mapping tools, and analysis to quantify the impact on precinct-level composition after redistricting. Initially focused on the Texas, this project will be designed as a scalable framework for national election data standardization.
+Using U.S. Census block-level population data as weights, we precisely 
+map past election results onto new district lines — so that comparisons 
+across election cycles remain accurate even as boundaries shift.
 
-## The Problem
-Election results and legislative boundaries are fragmented. Because precinct shapes and district lines change at different intervals, it is difficult to perform accurate historical comparisons. This project aims to solves this by ...
+We are starting with a pilot in Travis County, TX, then scaling statewide.
 
-## Background 
-For a full list of research and methodology papers, see our [Reading List](./docs/reading-list.md).
+## The three phases
 
---------------------------
-## Getting Started
+| Phase | Name | Status |
+|-------|------|--------|
+| 1 | Spatial Harmonization Pilot (Travis County) | In progress |
+| 2 | Statewide Scaling Engine (all 254 TX counties) | Not started |
+| 3 | Power Shift Navigator (strategic dashboard) | Not started |
 
-1. Clone this repo and start building in the `src/` directory
-2. Put raw data files in `data/` and documentation in `docs/`
-3. Update the `.project-status.yml` file as your project evolves
+## Repo structure
+## Getting started
 
-## Project Status YAML
+```bash
+# 1. Clone the repo
+git clone https://github.com/bluebonnet-data/bb-unified-election-data
 
-The `.project-status.yml` file in the root of this repo powers the Project Hub dashboard. It tracks what your project does, what the team is working on, and what help is needed.
+# 2. Move into the folder
+cd bb-unified-election-data
 
-The hub automatically syncs whenever this file changes. You can edit it manually, or let the AI auto-updater keep it current based on your commits.
-
-### Key fields
-
-- **name** / **description** — What this project is
-- **tools** — Technologies and data sources you're using
-- **current_focus** — What the team is actively working on
-- **needs** — Action items where volunteers can help (code review, testing, design, etc.)
-- **team** — Lead and contributors (GitHub usernames)
-- **campaign** — Candidate name and office/race
-
-### AI Auto-Updates
-
-The Project Hub uses AI to automatically update this file when you push code changes. It analyzes your commits and adjusts fields like `current_focus`, `tools`, and `needs` to keep the dashboard accurate.
-
-**To opt out of AI updates**, set `auto_refresh: false` in your YAML:
-
-```yaml
-project:
-  auto_refresh: false
+# 3. Install dependencies
+pip install -r requirements.txt
 ```
 
-The AI will never change the `auto_refresh` field itself — it respects your choice.
+## How to contribute
+
+This is a 100% volunteer project. Read `CONTRIBUTING.md` before you start — 
+it explains how we work asynchronously and how to pick up a task.
+
+All open tasks are in the [Issues tab](../../issues). Filter by label to find 
+something that matches your skills.
