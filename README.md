@@ -37,7 +37,7 @@ pip install -r requirements.txt
 ## How to contribute
 
 This is a 100% volunteer project. Read `CONTRIBUTING.md` before you start — 
-it explains how we work asynchronously and how to pick up a task.
+it explains how we collaborate and how to pick up a task.
 
 All open tasks are in the [Issues tab](../../issues). Filter by label to find 
 something that matches your skills.
