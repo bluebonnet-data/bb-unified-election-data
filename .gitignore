@@ -1,11 +1,15 @@
-# Large data files
+# Large raw Census files
+*.pl
+tx2020.pl.zip
+travis_census_blocks_2020.csv
+
+# Large geo formats we don't need in the repo
 *.shp
 *.dbf
 *.shx
 *.prj
 *.cpg
 *.geojson
-*.gpkg
 
 # Python
 __pycache__/
@@ -19,7 +23,3 @@ dist/
 
 # Mac
 .DS_Store
-*.pl
-*.pl
-tx2020.pl.zip
-travis_census_blocks_2020.csv
