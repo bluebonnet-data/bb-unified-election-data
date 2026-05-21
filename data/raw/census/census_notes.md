@@ -20,3 +20,19 @@
 - Population counts are exact 2020 Census counts (not estimates)
 - Some blocks have zero population (commercial areas, parks, etc.)
 - This data was designed specifically for redistricting work
+
+## Census Block Geometries (TLC)
+- **Source:** Texas Legislative Council Capitol Data Portal
+- **URL:** https://data.capitol.texas.gov/dataset/2020-census-geography
+- **File:** Blocks.zip (371MB — too large for GitHub, download manually)
+- **Also download:** Blocks_Pop.zip (30MB — already in repo)
+- **Instructions:** Download Blocks.zip, save to `/data/raw/census/`
+- **Note:** Blocks.zip contains block geometries for all of Texas.
+  Filter to Travis County using CNTY == '453'
+
+## Processed Output
+- **File:** `/data/processed/travis_blocks_2020.gpkg`
+- **Contains:** 16,906 Travis County census blocks with geometry and 
+  population counts (total, anglo, asian, hisp, black)
+- **This file is in the repo** — you only need Blocks.zip if you want 
+  to re-run the processing from scratch
