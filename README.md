@@ -1,28 +1,26 @@
-# Bluebonnet Unified Election Data — Spatial Continuity Engine
+# Bluebonnet Unified Election Data
 
-## What this project does
+When states redraw their political maps, directly comparing election results across cycles becomes challenging. You are looking at different slices of the population each time. A district might appear more Republican or Democratic simply because different neighborhoods got added or removed, not because of any real shift in how people voted.
 
-When legislative boundaries change after redistricting, the link between historical votes and geographic regions breaks. This makes it impossible to accurately track how neighborhoods and districts shift politically over time — which is exactly what campaigns need to know.
-
-This project builds a data pipeline that fixes that problem by using U.S. Census block-level population data to precisely remap historical election results onto new boundary lines. The result is a consistent, apples-to-apples view of how any geography has voted over time — regardless of how the maps have changed.
+This project translates past election results onto current maps so campaigns can see how any district or neighborhood has genuinely trended over time. We are starting with Texas, where a 2025 mid-decade redraw created an urgent need for exactly this kind of historical context.
 
 ## Who this is for
 
-- **US House campaigns** — understand how your district has trended across election cycles on a consistent map
-- **Down-ballot campaigns** — see how specific neighborhoods and precincts have shifted over time, identify base vs persuadable vs lost-cause areas
-- **Field organizers** — target the right precincts with the right message
+- US House campaigns: see how your district has voted across multiple election cycles on a consistent map
+- Down-ballot campaigns (state house, city council, school board): understand which neighborhoods are your base, which are persuadable, and which are not worth the resources
+- Field organizers: know which precincts to prioritize before you knock a single door
 
-## Two levels of analysis
+## Two things we are building
 
-### District level (Phase 1 — in progress)
-Reconstruct past election results onto new congressional district boundaries. Answers: "How would District 37 have voted in 2016, 2018, 2020, 2022 if today's boundaries had existed?"
+### District-level analysis (in progress)
+What would past elections have looked like under today's congressional boundaries?
 
-### Precinct level (Phase 2 — planned)
-Reconstruct past election results onto a consistent precinct boundary map. Answers: "How has this specific neighborhood voted over the last four cycles and which direction is it moving?" This is the unit campaigns actually organize around.
+### Neighborhood-level analysis (planned)
+How has a specific precinct trended across the last four election cycles?
 
 ## Current status
 
-### Phase 1 pilot — Travis County, TX (active)
+### Phase 1 pilot - Travis County, TX (active)
 
 | Issue | Task | Status |
 |-------|------|--------|
@@ -33,34 +31,34 @@ Reconstruct past election results onto a consistent precinct boundary map. Answe
 | #7 | Vote interpolation 2020 Presidential | Done |
 | #8 | Methodology documentation | In progress |
 
-Pilot result: 2020 Presidential results successfully interpolated onto 7 new congressional districts touching Travis County. Zero vote loss. Weights validated. See notebooks/04_vote_interpolation.ipynb.
+Pilot result: 2020 Presidential results successfully translated onto 7 new congressional districts touching Travis County. All votes accounted for. See notebooks/04_vote_interpolation.ipynb.
 
 ### Next steps
 
 - Add 2016, 2018, 2022, 2024 election cycles to build a time series
 - Scale district-level engine to all 254 Texas counties
-- Build precinct-level time series engine
+- Build neighborhood-level time series engine
 - Build the Power Shift Navigator dashboard
 
 ## Repo structure
 
-- `data/raw/boundaries/` — Precinct and district shapefiles
-- `data/raw/census/` — Census block population data
-- `data/raw/election_results/` — Raw election result files
-- `data/processed/` — Analysis-ready outputs
-- `docs/` — Methodology, scoping, reference reading
-- `notebooks/` — Jupyter notebooks for exploration
-- `scripts/` — Standalone Python scripts
-- `tests/` — Validation and unit tests
+- data/raw/boundaries: Precinct and district shapefiles (map boundary files)
+- data/raw/census: Census block population data
+- data/raw/election_results: Raw election result files
+- data/processed: Analysis-ready outputs
+- docs: Methodology, scoping, reference reading
+- notebooks: Jupyter notebooks for exploration
+- scripts: Standalone Python scripts
+- tests: Validation and unit tests
 
 ## Getting started
 
-1. Clone the repo: `git clone https://github.com/bluebonnet-data/bb-unified-election-data`
-2. Move into the folder: `cd bb-unified-election-data`
-3. Install dependencies: `pip install -r requirements.txt`
+1. Clone the repo
+2. Move into the folder
+3. Run: pip install -r requirements.txt
 
-See `docs/` for methodology and `notebooks/` for step-by-step walkthroughs.
+See docs/ for methodology and notebooks/ for step-by-step walkthroughs.
 
 ## How to contribute
 
-Read `CONTRIBUTING.md` before starting. All open tasks are in the [Issues tab](../../issues).
+Read CONTRIBUTING.md before starting. All open tasks are in the Issues tab.
