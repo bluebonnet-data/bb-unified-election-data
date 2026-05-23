@@ -4,6 +4,17 @@ When states redraw their political maps, directly comparing election results acr
 
 This project translates past election results onto current maps so campaigns can see how any district or neighborhood has genuinely trended over time. We are starting with Texas, where a 2025 mid-decade redraw created an urgent need for exactly this kind of historical context.
 
+
+## Why this matters
+
+When election boundaries change, tracking political trends over time breaks down. This pipeline aims to fix that by re-sorting historical votes into today's brand-new district and precinct lines.
+
+This gives campaigns three vital advantages:
+
+- Unmasking map changes: provides evidence of exactly who a new map helps or hurts before a single new ballot is cast.
+- Neighborhood trends: bypasses years of messy, shifting county precinct lines to reveal clear, multi-cycle political trendlines for those living in those neighborhoods today.
+- Resource precision: stops campaigns from wasting limited time and money based on outdated maps, shifting field strategy from guesswork to data-backed analysis.
+
 ## Who this is for
 
 - US House campaigns: see how your district has voted across multiple election cycles on a consistent map
