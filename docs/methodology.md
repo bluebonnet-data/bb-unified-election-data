@@ -25,10 +25,87 @@ The simple approach is area-weighted interpolation: if 70% of the precinct's lan
 The better approach is population-weighted interpolation, which is what this project uses. Instead of splitting by land area, we split by where people actually live. We use Census block population counts to figure out what fraction of each precinct's residents fall inside each district, then use those fractions to allocate votes.
 
 The result is a more accurate estimate of how each district would have voted if those boundaries had existed during past elections.
+<svg width="100%" viewBox="0 0 680 420" role="img">
+<title>Population-weighted interpolation diagram</title>
+<desc>A precinct split across two congressional districts, showing how census block population determines vote allocation weights</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<rect x="40" y="40" width="380" height="260" rx="12" fill="#E6F1FB" stroke="#185FA5" stroke-width="1"/>
+<text font-size="14" font-weight="500" x="230" y="68" text-anchor="middle" fill="#0C447C">Precinct 14</text>
+<text font-size="12" x="230" y="86" text-anchor="middle" fill="#185FA5">2,000 total residents</text>
+<line x1="230" y1="40" x2="230" y2="300" stroke="#E24B4A" stroke-width="2" stroke-dasharray="6 3"/>
+<text font-size="12" x="232" y="32" fill="#A32D2D">new district line</text>
+<rect x="52" y="110" width="164" height="178" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text font-size="14" font-weight="500" x="134" y="148" text-anchor="middle" fill="#085041">District A</text>
+<text font-size="12" x="134" y="166" text-anchor="middle" fill="#0F6E56">200 residents</text>
+<text font-size="12" x="134" y="184" text-anchor="middle" fill="#0F6E56">weight: 0.10</text>
+<rect x="238" y="110" width="168" height="178" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text font-size="14" font-weight="500" x="322" y="148" text-anchor="middle" fill="#3C3489">District B</text>
+<text font-size="12" x="322" y="166" text-anchor="middle" fill="#534AB7">1,800 residents</text>
+<text font-size="12" x="322" y="184" text-anchor="middle" fill="#534AB7">weight: 0.90</text>
+<circle cx="90" cy="230" r="6" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<circle cx="115" cy="210" r="5" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<circle cx="140" cy="240" r="4" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<circle cx="165" cy="220" r="6" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<circle cx="100" cy="260" r="4" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+<text font-size="12" x="134" y="215" text-anchor="middle" fill="#0C447C">sparse</text>
+<circle cx="270" cy="200" r="14" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+<circle cx="310" cy="220" r="16" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+<circle cx="350" cy="200" r="12" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+<circle cx="285" cy="250" r="13" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+<circle cx="330" cy="255" r="15" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+<text font-size="12" x="322" y="215" text-anchor="middle" fill="#633806">dense</text>
+<line x1="230" y1="340" x2="420" y2="340" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="230" y1="340" x2="50" y2="340" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="430" y="315" width="190" height="50" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text font-size="14" font-weight="500" x="525" y="336" text-anchor="middle" fill="#3C3489">District B gets</text>
+<text font-size="12" x="525" y="354" text-anchor="middle" fill="#534AB7">90% of precinct votes</text>
+<rect x="40" y="315" width="178" height="50" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text font-size="14" font-weight="500" x="129" y="336" text-anchor="middle" fill="#085041">District A gets</text>
+<text font-size="12" x="129" y="354" text-anchor="middle" fill="#0F6E56">10% of precinct votes</text>
+<text font-size="12" x="340" y="400" text-anchor="middle" fill="#5F5E5A">circle size = census block population</text>
+</svg>
 
 ## How it works: a step-by-step example
 
 Imagine Travis County has three precincts and two new congressional districts. Here is how the calculation works.
+
+<svg width="100%" viewBox="0 0 680 360" role="img">
+<title>Four-step interpolation process</title>
+<desc>Flowchart showing the four steps: gather ingredients, overlay census blocks, calculate weights, allocate votes</desc>
+<defs>
+<marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<rect x="40" y="60" width="130" height="70" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text font-size="14" font-weight="500" x="105" y="88" text-anchor="middle" fill="#0C447C">Step 1</text>
+<text font-size="12" x="105" y="106" text-anchor="middle" fill="#185FA5">Gather the</text>
+<text font-size="12" x="105" y="120" text-anchor="middle" fill="#185FA5">three ingredients</text>
+<rect x="220" y="60" width="130" height="70" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text font-size="14" font-weight="500" x="285" y="88" text-anchor="middle" fill="#085041">Step 2</text>
+<text font-size="12" x="285" y="106" text-anchor="middle" fill="#0F6E56">Overlay census</text>
+<text font-size="12" x="285" y="120" text-anchor="middle" fill="#0F6E56">blocks on both maps</text>
+<rect x="400" y="60" width="130" height="70" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text font-size="14" font-weight="500" x="465" y="88" text-anchor="middle" fill="#3C3489">Step 3</text>
+<text font-size="12" x="465" y="106" text-anchor="middle" fill="#534AB7">Calculate</text>
+<text font-size="12" x="465" y="120" text-anchor="middle" fill="#534AB7">population weights</text>
+<rect x="220" y="220" width="130" height="70" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text font-size="14" font-weight="500" x="285" y="248" text-anchor="middle" fill="#633806">Step 4</text>
+<text font-size="12" x="285" y="266" text-anchor="middle" fill="#854F0B">Allocate votes</text>
+<text font-size="12" x="285" y="280" text-anchor="middle" fill="#854F0B">and validate</text>
+<line x1="170" y1="95" x2="218" y2="95" stroke="#185FA5" stroke-width="1.5" marker-end="url(#arrow2)"/>
+<line x1="350" y1="95" x2="398" y2="95" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#arrow2)"/>
+<path d="M465 130 L465 175 L285 175 L285 218" fill="none" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow2)"/>
+<text font-size="12" x="105" y="155" text-anchor="middle" fill="#5F5E5A">Precinct boundaries</text>
+<text font-size="12" x="105" y="170" text-anchor="middle" fill="#5F5E5A">District boundaries</text>
+<text font-size="12" x="105" y="185" text-anchor="middle" fill="#5F5E5A">Census block counts</text>
+<text font-size="12" x="285" y="155" text-anchor="middle" fill="#5F5E5A">Tag each block with</text>
+<text font-size="12" x="285" y="170" text-anchor="middle" fill="#5F5E5A">precinct + district ID</text>
+<text font-size="12" x="465" y="155" text-anchor="middle" fill="#5F5E5A">weight = block pop</text>
+<text font-size="12" x="465" y="170" text-anchor="middle" fill="#5F5E5A">/ precinct total pop</text>
+<text font-size="12" x="285" y="315" text-anchor="middle" fill="#5F5E5A">votes x weight = allocated votes</text>
+<text font-size="12" x="285" y="330" text-anchor="middle" fill="#5F5E5A">total must match original</text>
+</svg>
 
 **Step 1 — Gather the three ingredients**
 
