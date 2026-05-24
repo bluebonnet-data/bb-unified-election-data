@@ -2,32 +2,30 @@
 
 When states redraw their political maps, directly comparing election results across cycles becomes challenging. You are looking at different slices of the population each time. A district might appear more Republican or Democratic simply because different neighborhoods got added or removed, not because of any real shift in how people voted.
 
-This project translates past election results onto current maps so campaigns can see how any district or neighborhood has genuinely trended over time. We are starting with Texas, where a 2025 mid-decade redraw created an urgent need for exactly this kind of historical context.
+This project will translate past election results onto current maps so campaigns can see how any district or neighborhood has genuinely trended over time. We are starting with Texas, where a 2025 mid-decade redraw created an urgent need for exactly this kind of historical context.
 
 
 ## Why this matters
 
-When election boundaries change, tracking political trends over time breaks down. This pipeline aims to fix that by re-sorting historical votes into today's brand-new district and precinct lines.
+By standardizing historical votes onto today's exact district and precinct boundaries, this pipeline gives campaigns three vital advantages:
 
-This gives campaigns three vital advantages:
-
-- Unmasking map changes: provides evidence of exactly who a new map helps or hurts before a single new ballot is cast.
-- Neighborhood trends: bypasses years of messy, shifting county precinct lines to reveal clear, multi-cycle political trendlines for those living in those neighborhoods today.
-- Resource precision: stops campaigns from wasting limited time and money based on outdated maps, shifting field strategy from guesswork to data-backed analysis.
+- Unmasking map changes: Quantifies exactly who a new map helps or hurts before a single new ballot is cast.
+- Neighborhood-level trends: Bypasses years of messy, shifting precinct lines to reveal clear, multi-cycle political trajectories for stable geographic communities.
+- Resource precision: Stops campaigns from wasting limited time and money based on obsolete boundaries, shifting field strategy from guesswork to evidence-backed analysis.
 
 ## Who this is for
 
-- US House campaigns: see how your district has voted across multiple election cycles on a consistent map
-- Down-ballot campaigns (state house, city council, school board): understand which neighborhoods are your base, which are persuadable, and which are not worth the resources
-- Field organizers: know which precincts to prioritize before you knock a single door
+- Congressional Campaigns: Track true multi-cycle performance instantly within newly redrawn lines.
+- Down-Ballot Campaigns: Pinpoint your baseline neighborhoods and high-leverage persuasion zones to protect tight budgets.
+- Field Directors & Organizers: Prioritize door-knocking lists using true precinct trajectories, not un-adjusted historical data.
 
 ## Two things we are building
 
-### District-level analysis (in progress)
-What would past elections have looked like under today's congressional boundaries?
+### District-level analysis [In Progress]
+Simulates past election results using current congressional boundaries to establish a true historical baseline.
 
-### Neighborhood-level analysis (planned)
-How has a specific precinct trended across the last four election cycles?
+### Neighborhood-level analysis [Planned]
+Tracks localized political trajectories across multiple cycles, independent of shifting precinct lines.
 
 ## Current status
 
