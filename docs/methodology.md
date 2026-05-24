@@ -1,4 +1,4 @@
-methodology = """# Methodology
+# Methodology
 
 > **Note:** This document is a working draft and actively being developed. Content is accurate but language and structure are still being refined. If you have questions or suggestions, please comment on Issue #8.
 
@@ -133,8 +133,3 @@ In the Travis County pilot:
 
 A zero difference for every candidate confirms that no votes were created or lost in the process.
 """
-
-with open('../docs/methodology.md', 'w') as f:
-    f.write(methodology)
-
-print("Done")
