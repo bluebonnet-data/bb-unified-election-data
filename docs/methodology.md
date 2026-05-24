@@ -26,13 +26,11 @@ The better approach is population-weighted interpolation, which is what this pro
 
 The result is a more accurate estimate of how each district would have voted if those boundaries had existed during past elections.
 
-![Precinct split diagram](images/precinct_split.svg)
+![Travis County map](images/travis_county_map.png)
 
 ## How it works: a step-by-step example
 
 Imagine Travis County has three precincts and two new congressional districts. Here is how the calculation works.
-
-![Interpolation steps](images/interpolation_steps.svg)
 
 **Step 1 — Gather the three ingredients**
 
@@ -73,6 +71,8 @@ Repeat for every precinct and every candidate, then sum by district. The total v
 **The 2020 Census accurately reflects who was living in each block at the time of the elections being analyzed.** Population shifts between census years are not captured. A neighborhood that grew rapidly between 2020 and 2024 will have its population underrepresented in our weights.
 
 **Voter turnout is uniform across a precinct.** We allocate votes proportionally to population, not to registered voters or actual turnout. A census block with 500 residents gets 5x the weight of one with 100 residents, even if the smaller block has higher turnout.
+
+![Population density](images/population_density.png)
 
 ## Known limitations and edge cases
 
@@ -120,6 +120,8 @@ File: tx_2020.zip
 ## Validation approach
 
 Two checks are run to confirm the results are correct. Both must pass before the output is considered reliable.
+
+![District results](images/district_results.png)
 
 ### Weight-sum test
 
