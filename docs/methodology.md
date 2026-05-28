@@ -1,6 +1,6 @@
 # Methodology
 
-> **Note:** This document is a working draft and actively being developed. Content is accurate but language and structure are still being refined. If you have questions or suggestions, please comment on Issue #8.
+> **Note:** This document reflects the completed Travis County pilot methodology. Minor refinements may continue — if you have questions or suggestions, please open a new issue.
 
 ## The core problem
 
