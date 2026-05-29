@@ -38,7 +38,7 @@ The baseline approach is area-weighted interpolation: if 70% of a precinct's lan
 
 The better approach is population-weighted interpolation, which is what this project uses. Instead of splitting votes by land area, we split them by where residents actually live. We use Census block population counts to calculate the exact fraction of a precinct's population that falls inside each new district, and use those population fractions to allocate the historical votes.
 
-![Population density with 2026 district lines — District 10 highlighted](images/population_density_district10.png)
+![Population density with 2026 district and precinct lines — district boundaries cut through voting precincts](images/population_density_district10.png)
 
 The result is a much more accurate estimate of how a new district configuration would have performed in a past election.
 
