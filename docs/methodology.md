@@ -1,6 +1,6 @@
 # Methodology
 
-> **Note:** This document reflects the completed Travis County pilot methodology. Minor refinements may continue — if you have questions or suggestions, please open a new issue.
+> **Note:** This document reflects the completed Travis County pilot methodology. Minor refinements may continue. If you have questions or suggestions, please open an issue.
 
 ## The core problem
 
@@ -16,19 +16,19 @@ By standardizing historical votes onto today's exact district and precinct bound
 - Neighborhood-level trends: bypasses years of messy, shifting precinct lines to reveal clear, multi-cycle political trajectories for stable geographic communities.
 - Resource precision: stops campaigns from wasting limited time and money based on obsolete boundaries, shifting field strategy from guesswork to evidence-backed analysis.
 
-### Case in Point: Travis County as a Proof of Concept
+### Case in Point: Travis County (TX) as a Proof of Concept
 
 To test whether this population-weighting approach works in practice, we applied the logic to Travis County, which underwent notable boundary shifts during the 2025 redistricting cycle. 
 
 Under the 2021 map, Travis County residents made up 38% of District 35's population. This substantial stakeholder share meant Austin-area voters had a meaningful, concentrated voice in that district. 
 
-In the 2026 map, District 35 was eliminated. It was replaced by District 11, where Travis County's share of the population drops to just 19%. By running the census-block intersection on these two map iterations, we can see the exact mechanics of the shift: a massive portion of the county's population was concentrated into a single district (District 37, which became 98% Travis County), while its footprint in the surrounding districts was minimized.
-
-Using Travis County as our initial test case allows us to verify that the spatial math can successfully isolate and quantify these structural shifts before trying to scale the logic statewide.
-
 ![2021 Map: Tracking Travis County's initial district footprint](images/redistricting_2021.png)
 
+In the 2026 map, District 35 was eliminated. It was replaced by District 11, where Travis County's share of the population drops to just 19%. By running the census-block intersection on these two map iterations, we can see the exact mechanics of the shift: a massive portion of the county's population was concentrated into a single district (District 37, which became 98% Travis County), while its footprint in the surrounding districts was minimized.
+
 ![2026 Map: Visualizing the population concentration and dilution](images/redistricting_2026.png)
+
+Using Travis County as our initial test case allows us to verify that the spatial math can successfully isolate and quantify these structural shifts before trying to scale the logic statewide.
 
 ## Two approaches: area-weighted vs population-weighted
 
@@ -38,9 +38,9 @@ The baseline approach is area-weighted interpolation: if 70% of a precinct's lan
 
 The better approach is population-weighted interpolation, which is what this project uses. Instead of splitting votes by land area, we split them by where residents actually live. We use Census block population counts to calculate the exact fraction of a precinct's population that falls inside each new district, and use those population fractions to allocate the historical votes.
 
-The result is a much more accurate estimate of how a new district configuration would have performed in a past election.
+![Population density with 2026 district lines — District 10 highlighted](images/population_density_district10.png)
 
-![Visualizing how a static population layer intersects with changing district boundaries](images/population_density_districts.png)
+The result is a much more accurate estimate of how a new district configuration would have performed in a past election.
 
 ## How it works: a step-by-step example
 
@@ -55,8 +55,6 @@ To illustrate the methodology, imagine a simplified county with three precincts 
 **Step 2 — Overlay census blocks onto both maps**
 
 A census block is a very small geographic unit. By performing a spatial intersection, we associate every census block with both its precinct ID and its new target district ID. This spatial join allows us to map exactly which district each block's population belongs to.
-
-![Population density across Travis County: Census blocks are highly granular, scaling down to become much smaller and more numerous in dense urban areas](images/population_density.png)
 
 **Step 3 — Calculate population weights**
 
@@ -73,8 +71,8 @@ Example for Precinct 14 (Total Population = 2,000):
 Finally, we multiply the historical precinct-level vote totals by these calculated population weights to distribute the votes into the new district configurations.
 
 Example for Candidate X in Precinct 14 (Total Votes = 1,200):
-- Allocation to District B: 1,200 \times 0.90 = 1,080 votes
-- Allocation to District A: 1,200 \times 0.10 = 120 votes
+- Allocation to District B: 1,200 x 0.90 = 1,080 votes
+- Allocation to District A: 1,200 x 0.10 = 120 votes
 
 This process is repeated systematically for every precinct and every candidate, and the results are then summed by district. To pass validation, the aggregate vote totals across the new districts must exactly match the original precinct-level baseline; no votes can be artificially created or lost during the interpolation.
 
@@ -144,7 +142,7 @@ For every precinct with a non-zero population, the cumulative weights of its sub
 In the Travis County pilot, 245 of 247 precincts passed automatically. The remaining two were zero-population precincts. Because dividing zero by zero produces a null or `NaN` value, the pipeline explicitly catches these edge cases and assigns a static weight of 0.0.
 
 ### Vote-preservation test
-After distributing precinct-level votes across district boundaries, aggregate vote totals across the entire map must exactly match the un-interpolated county baseline.
+After distributing precinct-level votes across district boundaries, aggregate vote totals across the entire map must exactly match the original precinct-level totals.
 
 The Travis County pilot demonstrates zero data leakage:
 * **Original Biden Votes**: 435,860 — **Estimated**: 435,860 — **Difference**: 0.0
