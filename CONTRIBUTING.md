@@ -4,14 +4,12 @@ Thank you for volunteering your time. This document explains how we work.
 
 ## Our philosophy
 
-This is a 100% volunteer project. We respect your time, your day job, and 
-your boundaries. Everything is designed so you can contribute meaningfully 
-in 20-minute windows without needing to make big commitments.
+This is a volunteer-driven project. We respect your time and your other commitments. Whether you have a few hours a week or just want to take on one focused task, there is a place for you here.
 
 ## How to pick up a task
 
 1. Go to the [Issues tab](../../issues)
-2. Find an issue that matches your skills — look for the "good first issue" label if you are new
+2. Find an issue that matches your skills. Look for the "good first issue" label if you are new.
 3. Leave a comment on the issue saying you are working on it
 4. When you are done, open a Pull Request and reference the issue number (e.g. "Closes #2")
 
@@ -29,14 +27,20 @@ to track you down.
 
 ## How we communicate
 
-We default to async — questions and decisions happen in GitHub Issue comments 
-so the answers are visible to everyone and nothing gets lost in DMs or chat.
+We default to async. Questions and decisions happen in GitHub Issue comments so the answers are visible to everyone and nothing gets lost in DMs or chat.
 
-Occasional syncs happen when they are useful, but we never require attendance. 
-If a meeting happens, notes go back into the relevant issue so async contributors 
-stay in the loop.
+If you are new, we can do a quick onboarding call to get you oriented. 
+As the team grows, we are open to occasional calls for coordination and support.
 
 ## Workflow
+
+1. Claim an issue by leaving a comment on it
+2. Do the work in your own branch
+3. Open a Pull Request and reference the issue number (e.g. "Closes #10")
+4. Leave a Handover comment if you need to pause
+
+Not familiar with GitHub? DM the project lead for an onboarding call.
+
 ## Questions?
 
 Post a comment on the relevant issue or open a new issue with the "question" label.
