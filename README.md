@@ -2,7 +2,7 @@
 
 When states redraw their political maps, directly comparing election results across cycles becomes challenging. You are looking at different slices of the population each time. A district might appear more Republican or Democratic simply because different neighborhoods got added or removed, not because of any real shift in how people voted.
 
-This project will translate past election results onto current maps so campaigns can see how any district or neighborhood has genuinely trended over time. We are starting with Texas, where a 2025 mid-decade redraw created an urgent need for exactly this kind of historical context.
+This project aims to translate past election results onto current maps so campaigns can see how any district or neighborhood has genuinely trended over time. We are starting with Texas, where a 2025 mid-decade redraw created an urgent need for exactly this kind of historical context.
 
 
 ## Why this matters
@@ -29,7 +29,7 @@ Tracks localized political trajectories across multiple cycles, independent of s
 
 ## Current status
 
-### Phase 1 pilot - Travis County, TX (active)
+### Phase 1 pilot - Travis County, TX (complete)
 
 | Issue | Task | Status |
 |-------|------|--------|
@@ -38,9 +38,9 @@ Tracks localized political trajectories across multiple cycles, independent of s
 | #5 | Census block population data | Done |
 | #6 | Spatial intersection engine | Done |
 | #7 | Vote interpolation 2020 Presidential | Done |
-| #8 | Methodology documentation | In progress |
+| #8 | Methodology documentation | Done |
 
-Pilot result: 2020 Presidential results successfully translated onto 7 new congressional districts touching Travis County. All votes accounted for. See notebooks/04_vote_interpolation.ipynb.
+2020 Presidential results successfully mapped onto 7 new congressional districts touching Travis County with zero vote leakage. Travis County's redistricting impact quantified — District 35 (38% Travis County) eliminated and replaced by District 11 (19%). See notebooks/04_vote_interpolation.ipynb.
 
 ### Next steps
 
