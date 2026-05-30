@@ -44,9 +44,10 @@ Tracks localized political trajectories across multiple cycles, independent of s
 
 ### Next steps
 
-- Add 2016, 2018, 2022, 2024 election cycles to build a time series
-- Scale district-level engine to all 254 Texas counties
-- Build neighborhood-level time series engine
+- Add 2016, 2018, 2022, 2024 election cycles to build a time series (Issue #10)
+- Build precinct-level time series on consistent boundaries (Issue #9)
+- Scale district-level engine to a second Texas county (Issue #11)
+- Design statewide scaling architecture for all 254 counties (Issue #12)
 - Build the Power Shift Navigator dashboard
 
 ## Repo structure
