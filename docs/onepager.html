@@ -377,9 +377,11 @@
 </style>
 </head>
 <body>
-  <div style="background: #E65C00; color: white; text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 500; letter-spacing: 0.03em;">
-    🚧 This page is a work in progress — content and design are actively being refined.
-  </div>
+
+<!-- DEV BANNER -->
+<div style="background: #E65C00; color: white; text-align: center; padding: 10px 20px; font-size: 13px; font-weight: 500; letter-spacing: 0.03em;">
+  🚧 This page is a work in progress — content and design are actively being refined.
+</div>
 
 <!-- HEADER -->
 <div class="header">
@@ -400,8 +402,8 @@
   <div class="problem-inner">
     <div>
       <h2>The Problem</h2>
-      <p>When district lines are redrawn, the historical record breaks. A neighborhood that voted 62% Democratic in 2020 might look completely different on the new map — not because voters changed their minds, but because the lines moved.</p>
-      <p>Directly comparing results across redistricting cycles is misleading. Campaigns make decisions on bad baselines. Trends that look real are actually just artifacts of boundary changes.</p>
+      <p>When states redraw their political maps, directly comparing election results across cycles becomes challenging. You are looking at different slices of the population each time. A district might appear more Republican or Democratic simply because different neighborhoods got added or removed — not because of any real shift in how people voted.</p>
+      <p>This project aims to address exactly that.</p>
     </div>
     <div class="problem-callout">
       <div class="big">"The lines moved. Did voters actually change — or does it just look that way?"</div>
@@ -418,8 +420,13 @@
     <div class="two-col">
       <div>
         <h2>Population-weighted<br>interpolation</h2>
-        <p>When a precinct straddles a new district boundary, you have to decide how to split its historical votes. The naive approach splits by land area — but land does not vote. A precinct that is 70% empty parkland and 30% dense neighborhood should not have its votes split 70/30.</p>
-        <p>This pipeline uses Census block population counts to calculate the exact fraction of each precinct's residents that fall inside each new district. Those population fractions become the weights that split the votes — precisely and honestly.</p>
+        <p>Election results are reported at the precinct level. Precincts are the small geographic units — roughly neighborhood-sized — where votes are counted and recorded. They are always the starting point.</p>
+        <p>When district lines are redrawn, the new boundaries rarely align with old precinct lines. A single precinct might now straddle two different congressional districts. To reconstruct what past elections would have looked like under the new map, you need to split that precinct's votes accurately.</p>
+        <p>This pipeline uses three ingredients:</p>
+        <p><strong>Precinct boundaries</strong> — the old map, where election results live.</p>
+        <p><strong>New district boundaries</strong> — the target geography you want to analyze.</p>
+        <p><strong>Census block population data</strong> — the bridge between the two. Census blocks are tiny geographic units each with an exact population count. They tell you where people actually live inside each precinct.</p>
+        <p>By overlaying census blocks onto both maps, the pipeline calculates what fraction of each precinct's population falls inside each new district. Those fractions become the weights that allocate historical votes to each new district.</p>
       </div>
       <div>
         <p style="font-size:12px; font-weight:600; color: var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">The weights table — how votes get split</p>
@@ -524,7 +531,7 @@
         <p><strong>Time series (Issue #10):</strong> Adding 2016, 2018, 2022, and 2024 election cycles so campaigns can see trends, not just snapshots.</p>
         <p><strong>County scaling (Issue #11):</strong> Generalizing the pipeline to a second Texas county to validate it works across different geographies.</p>
         <p><strong>Statewide architecture (Issue #12):</strong> Designing the database framework to handle all 254 Texas counties.</p>
-        <p><strong>Dashboard:</strong> An interactive map interface — working name TBD — that lets campaigns query any district's full political history in seconds.</p>
+        <p><strong>Dashboard:</strong> The weights tables are the foundation. Once built, campaigns, organizers, researchers, and engaged citizens can pull up any congressional district and see its full electoral history visualized on today's map — making it clear what is a real political shift and what is simply the result of lines being redrawn. Working name TBD — suggestions welcome.</p>
       </div>
       <div class="figure-wrap" style="margin-top:0;">
         <img src="https://raw.githubusercontent.com/bluebonnet-data/bb-unified-election-data/main/docs/images/travis_vote_share.png" alt="Travis County 2020 vote share by 2026 district" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
