@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unified Election Data Project</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0D1B2A;
+    --blue: #1A5276;
+    --mid-blue: #2E86C1;
+    --light-blue: #AED6F1;
+    --red: #A93226;
+    --orange: #E65C00;
+    --cream: #F9F6F0;
+    --warm-gray: #E8E4DC;
+    --text: #1C1C1C;
+    --muted: #6B6B6B;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    color: white;
+    padding: 48px 56px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 40px solid rgba(255,255,255,0.04);
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 30%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 30px solid rgba(255,255,255,0.03);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--light-blue);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    max-width: 600px;
+  }
+
+  .header-sub {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.75);
+    max-width: 560px;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* BODY */
+  .body { padding: 0 56px 56px; }
+
+  /* PROBLEM SECTION */
+  .problem {
+    background: var(--navy);
+    color: white;
+    padding: 36px 56px;
+    margin: 0 -56px;
+  }
+
+  .problem-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .problem h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    margin-bottom: 16px;
+    color: white;
+  }
+
+  .problem p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .problem-callout {
+    background: rgba(255,255,255,0.07);
+    border-left: 3px solid var(--light-blue);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .problem-callout .big {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: white;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .problem-callout .small {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+
+  /* SECTION HEADERS */
+  .section {
+    padding-top: 44px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid-blue);
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #3A3A3A;
+    margin-bottom: 12px;
+  }
+
+  /* TWO COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* WEIGHT TABLE */
+  .weight-table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--warm-gray);
+    font-size: 12px;
+    margin-top: 16px;
+  }
+
+  .weight-table thead {
+    background: var(--navy);
+    color: white;
+  }
+
+  .weight-table th, .weight-table td {
+    padding: 9px 14px;
+    text-align: left;
+  }
+
+  .weight-table tbody tr:nth-child(even) {
+    background: #F4F1EB;
+  }
+
+  .weight-table .highlight {
+    background: #EAF4FB !important;
+    font-weight: 500;
+  }
+
+  .weight-caption {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* CASE STUDY */
+  .case-study {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--warm-gray);
+    padding: 28px 32px;
+    margin-top: 28px;
+  }
+
+  .case-study h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .stat {
+    text-align: center;
+    padding: 16px 12px;
+    border-radius: 8px;
+    background: var(--cream);
+  }
+
+  .stat .number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--navy);
+    display: block;
+  }
+
+  .stat .label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  .stat.highlight-stat {
+    background: var(--navy);
+  }
+
+  .stat.highlight-stat .number,
+  .stat.highlight-stat .label {
+    color: white;
+  }
+
+  /* FIGURE */
+  .figure-wrap {
+    margin-top: 24px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--warm-gray);
+  }
+
+  .figure-wrap img {
+    width: 100%;
+    display: block;
+  }
+
+  .figure-caption {
+    background: var(--warm-gray);
+    padding: 10px 16px;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--warm-gray);
+    margin: 40px 0 0;
+  }
+
+  /* WHO */
+  .who-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .who-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid var(--warm-gray);
+  }
+
+  .who-card .icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .who-card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .who-card p {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--navy);
+    color: white;
+    padding: 28px 56px;
+    margin: 44px -56px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-left h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .footer-left p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin: 0;
+  }
+
+  .footer-link {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .accent { color: var(--mid-blue); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="eyebrow">Bluebonnet Data — Open Source Project</div>
+  <h1>The Unified Election<br>Data Project</h1>
+  <p class="header-sub">A spatial data pipeline that translates historical election results onto newly redrawn maps — separating true neighborhood political trends from structural shifts caused by changing district lines.</p>
+  <div class="tag-row">
+    <span class="tag">Python / GeoPandas</span>
+    <span class="tag">GIS / Spatial Analysis</span>
+    <span class="tag">Census Data</span>
+    <span class="tag">Open Source</span>
+    <span class="tag">Texas 2026</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<div class="problem">
+  <div class="problem-inner">
+    <div>
+      <h2>The Problem</h2>
+      <p>When district lines are redrawn, the historical record breaks. A neighborhood that voted 62% Democratic in 2020 might look completely different on the new map — not because voters changed their minds, but because the lines moved.</p>
+      <p>Directly comparing results across redistricting cycles is misleading. Campaigns make decisions on bad baselines. Trends that look real are actually just artifacts of boundary changes.</p>
+    </div>
+    <div class="problem-callout">
+      <div class="big">"The lines moved. Did voters actually change — or does it just look that way?"</div>
+      <div class="small">This project answers that question with precision, for any district, before a single new ballot is cast.</div>
+    </div>
+  </div>
+</div>
+
+<div class="body">
+
+  <!-- APPROACH -->
+  <div class="section">
+    <div class="section-label">The Approach</div>
+    <div class="two-col">
+      <div>
+        <h2>Population-weighted<br>interpolation</h2>
+        <p>When a precinct straddles a new district boundary, you have to decide how to split its historical votes. The naive approach splits by land area — but land does not vote. A precinct that is 70% empty parkland and 30% dense neighborhood should not have its votes split 70/30.</p>
+        <p>This pipeline uses Census block population counts to calculate the exact fraction of each precinct's residents that fall inside each new district. Those population fractions become the weights that split the votes — precisely and honestly.</p>
+      </div>
+      <div>
+        <p style="font-size:12px; font-weight:600; color: var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">The weights table — how votes get split</p>
+        <table class="weight-table">
+          <thead>
+            <tr>
+              <th>Precinct</th>
+              <th>District</th>
+              <th>Population</th>
+              <th>Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>4530101</td><td>27</td><td>139</td><td>0.007</td></tr>
+            <tr class="highlight"><td>4530101</td><td>37</td><td>19,778</td><td>0.993</td></tr>
+            <tr><td>4530102</td><td>37</td><td>5,854</td><td>1.000</td></tr>
+            <tr><td>4530105</td><td>10</td><td>2,369</td><td>0.068</td></tr>
+            <tr><td>4530105</td><td>11</td><td>228</td><td>0.007</td></tr>
+            <tr><td>4530105</td><td>27</td><td>14,260</td><td>0.410</td></tr>
+            <tr class="highlight"><td>4530105</td><td>37</td><td>17,935</td><td>0.515</td></tr>
+          </tbody>
+        </table>
+        <p class="weight-caption">Each row is one precinct/district fragment. Weights sum to exactly 1.0 per precinct — no votes created or lost. Precinct 4530105 splits across four districts because a district boundary cuts through it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CASE STUDY -->
+  <div class="section">
+    <div class="section-label">Proof of Concept</div>
+    <h2>Travis County, TX — Phase 1 Pilot</h2>
+    <p>Texas redrew its congressional maps in 2025. Travis County (Austin) became a test case for exactly the kind of structural shift this pipeline is designed to quantify.</p>
+
+    <div class="case-study">
+      <h3>What the redistricting actually did to Travis County</h3>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="number">247</span>
+          <span class="label">Travis County precincts in the pilot</span>
+        </div>
+        <div class="stat highlight-stat">
+          <span class="number">38% → 19%</span>
+          <span class="label">Travis County's share of District 35, now replaced by District 11</span>
+        </div>
+        <div class="stat">
+          <span class="number">0.0</span>
+          <span class="label">Vote leakage — exact preservation of all vote totals</span>
+        </div>
+      </div>
+      <p style="font-size:13px; color: #444;">Under the 2021 map, Travis County held 38% of District 35's population — a meaningful competitive seat where Austin-area voters had real influence. The 2026 map eliminated District 35 entirely. Its replacement, District 11, gives Travis County only 19% of the population. Meanwhile, District 37 became 98% Travis County — concentrated, not influential across competitive seats.</p>
+    </div>
+
+    <div class="figure-wrap" style="margin-top:20px;">
+      <img src="https://raw.githubusercontent.com/bluebonnet-data/bb-unified-election-data/main/docs/images/redistricting_2021.png" alt="2021 Travis County district map and population shares" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <div style="display:none; padding:40px; text-align:center; background:#f5f5f5; color:#999; font-size:13px;">2021 redistricting figure — visible in the repo at docs/images/redistricting_2021.png</div>
+      <div class="figure-caption">2021 map: Travis County's district footprint. District 35 (38% Travis County) was the key competitive seat.</div>
+    </div>
+
+    <div class="figure-wrap">
+      <img src="https://raw.githubusercontent.com/bluebonnet-data/bb-unified-election-data/main/docs/images/redistricting_2026.png" alt="2026 Travis County district map and population shares" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <div style="display:none; padding:40px; text-align:center; background:#f5f5f5; color:#999; font-size:13px;">2026 redistricting figure — visible in the repo at docs/images/redistricting_2026.png</div>
+      <div class="figure-caption">2026 map: District 35 eliminated. Travis County's footprint in competitive districts cut nearly in half.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- WHO -->
+  <div class="section">
+    <div class="section-label">Who This Is For</div>
+    <h2>Built for campaigns<br>and organizers</h2>
+    <div class="who-grid">
+      <div class="who-card">
+        <span class="icon">🏛️</span>
+        <h4>Congressional Campaigns</h4>
+        <p>See true multi-cycle performance within newly redrawn lines. Know your real historical baseline before canvassing begins.</p>
+      </div>
+      <div class="who-card">
+        <span class="icon">🗳️</span>
+        <h4>Down-Ballot Campaigns</h4>
+        <p>Pinpoint base neighborhoods and high-leverage persuasion zones. Stop wasting resources on outdated geography.</p>
+      </div>
+      <div class="who-card">
+        <span class="icon">📋</span>
+        <h4>Field Directors</h4>
+        <p>Prioritize door-knocking lists using true precinct trajectories, not historical data that no longer maps to today's lines.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ROADMAP -->
+  <div class="section">
+    <div class="section-label">What We Are Building Next</div>
+    <h2>Phase 2 and beyond</h2>
+    <div class="two-col">
+      <div>
+        <p>Phase 1 proved the methodology works in Travis County. The next steps scale it into a production-grade tool.</p>
+        <p><strong>Time series (Issue #10):</strong> Adding 2016, 2018, 2022, and 2024 election cycles so campaigns can see trends, not just snapshots.</p>
+        <p><strong>County scaling (Issue #11):</strong> Generalizing the pipeline to a second Texas county to validate it works across different geographies.</p>
+        <p><strong>Statewide architecture (Issue #12):</strong> Designing the database framework to handle all 254 Texas counties.</p>
+        <p><strong>Dashboard:</strong> An interactive map interface — working name TBD — that lets campaigns query any district's full political history in seconds.</p>
+      </div>
+      <div class="figure-wrap" style="margin-top:0;">
+        <img src="https://raw.githubusercontent.com/bluebonnet-data/bb-unified-election-data/main/docs/images/travis_vote_share.png" alt="Travis County 2020 vote share by 2026 district" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div style="display:none; padding:40px; text-align:center; background:#f5f5f5; color:#999; font-size:13px;">Vote share figure — visible in the repo at docs/images/travis_vote_share.png</div>
+        <div class="figure-caption">Estimated 2020 Presidential results by 2026 congressional district — Travis County contributions. This is what the pipeline produces.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-left">
+    <h4>Want to contribute?</h4>
+    <p>Async-first, 1 to 3 hours a week. Python, GIS, SQL, or docs welcome.</p>
+  </div>
+  <a class="footer-link" href="https://github.com/bluebonnet-data/bb-unified-election-data">View the repo →</a>
+</div>
+
+</body>
+</html>
