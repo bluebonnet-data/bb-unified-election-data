@@ -30,7 +30,6 @@
     padding: 0;
   }
 
-  /* HEADER */
   .header {
     background: var(--navy);
     color: white;
@@ -100,62 +99,9 @@
     color: rgba(255,255,255,0.7);
   }
 
-  /* BODY */
   .body { padding: 0 56px 56px; }
 
-  /* PROBLEM SECTION */
-  .problem {
-    background: var(--navy);
-    color: white;
-    padding: 36px 56px;
-    margin: 0 -56px;
-  }
-
-  .problem-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-  }
-
-  .problem h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 26px;
-    margin-bottom: 16px;
-    color: white;
-  }
-
-  .problem p {
-    font-size: 14px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.75);
-  }
-
-  .problem-callout {
-    background: rgba(255,255,255,0.07);
-    border-left: 3px solid var(--light-blue);
-    padding: 20px 24px;
-    border-radius: 0 8px 8px 0;
-  }
-
-  .problem-callout .big {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    color: white;
-    line-height: 1.4;
-    margin-bottom: 8px;
-  }
-
-  .problem-callout .small {
-    font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.5;
-  }
-
-  /* SECTION HEADERS */
-  .section {
-    padding-top: 44px;
-  }
+  .section { padding-top: 44px; }
 
   .section-label {
     font-size: 10px;
@@ -180,7 +126,6 @@
     margin-bottom: 12px;
   }
 
-  /* TWO COL */
   .two-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -188,7 +133,6 @@
     align-items: start;
   }
 
-  /* WEIGHT TABLE */
   .weight-table {
     background: white;
     border-radius: 10px;
@@ -196,26 +140,16 @@
     border: 1px solid var(--warm-gray);
     font-size: 12px;
     margin-top: 16px;
+    width: 100%;
   }
 
-  .weight-table thead {
-    background: var(--navy);
-    color: white;
-  }
+  .weight-table thead { background: var(--navy); color: white; }
 
-  .weight-table th, .weight-table td {
-    padding: 9px 14px;
-    text-align: left;
-  }
+  .weight-table th, .weight-table td { padding: 8px 10px; text-align: left; }
 
-  .weight-table tbody tr:nth-child(even) {
-    background: #F4F1EB;
-  }
+  .weight-table tbody tr:nth-child(even) { background: #F4F1EB; }
 
-  .weight-table .highlight {
-    background: #EAF4FB !important;
-    font-weight: 500;
-  }
+  .weight-table .highlight { background: #EAF4FB !important; font-weight: 500; }
 
   .weight-caption {
     font-size: 11px;
@@ -224,59 +158,6 @@
     line-height: 1.5;
   }
 
-  /* CASE STUDY */
-  .case-study {
-    background: white;
-    border-radius: 12px;
-    border: 1px solid var(--warm-gray);
-    padding: 28px 32px;
-    margin-top: 28px;
-  }
-
-  .case-study h3 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    margin-bottom: 12px;
-  }
-
-  .stat-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    margin: 20px 0;
-  }
-
-  .stat {
-    text-align: center;
-    padding: 16px 12px;
-    border-radius: 8px;
-    background: var(--cream);
-  }
-
-  .stat .number {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
-    color: var(--navy);
-    display: block;
-  }
-
-  .stat .label {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 4px;
-    line-height: 1.4;
-  }
-
-  .stat.highlight-stat {
-    background: var(--navy);
-  }
-
-  .stat.highlight-stat .number,
-  .stat.highlight-stat .label {
-    color: white;
-  }
-
-  /* FIGURE */
   .figure-wrap {
     margin-top: 24px;
     border-radius: 10px;
@@ -284,10 +165,7 @@
     border: 1px solid var(--warm-gray);
   }
 
-  .figure-wrap img {
-    width: 100%;
-    display: block;
-  }
+  .figure-wrap img { width: 100%; display: block; }
 
   .figure-caption {
     background: var(--warm-gray);
@@ -297,14 +175,12 @@
     line-height: 1.5;
   }
 
-  /* DIVIDER */
   .divider {
     height: 1px;
     background: var(--warm-gray);
     margin: 40px 0 0;
   }
 
-  /* WHO */
   .who-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -319,30 +195,17 @@
     border: 1px solid var(--warm-gray);
   }
 
-  .who-card .icon {
-    font-size: 22px;
-    margin-bottom: 10px;
-    display: block;
-  }
+  .who-card .icon { font-size: 22px; margin-bottom: 10px; display: block; }
 
-  .who-card h4 {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
+  .who-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
 
-  .who-card p {
-    font-size: 12px;
-    color: var(--muted);
-    margin: 0;
-  }
+  .who-card p { font-size: 12px; color: var(--muted); margin: 0; }
 
-  /* FOOTER */
   .footer {
     background: var(--navy);
     color: white;
     padding: 28px 56px;
-    margin: 44px -56px 0;
+    margin: 44px 0 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -356,11 +219,7 @@
     margin-bottom: 4px;
   }
 
-  .footer-left p {
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
-    margin: 0;
-  }
+  .footer-left p { font-size: 12px; color: rgba(255,255,255,0.6); margin: 0; }
 
   .footer-link {
     background: rgba(255,255,255,0.1);
@@ -372,8 +231,6 @@
     font-size: 13px;
     font-weight: 500;
   }
-
-  .accent { color: var(--mid-blue); }
 </style>
 </head>
 <body>
@@ -387,7 +244,7 @@
 <div class="header">
   <div class="eyebrow">Bluebonnet Data — Open Source Project</div>
   <h1>The Unified Election<br>Data Project</h1>
-  <p class="header-sub">A spatial data pipeline that translates historical election results onto newly redrawn maps — separating true neighborhood political trends from structural shifts caused by changing district lines.</p>
+  <p class="header-sub">A spatial data pipeline that translates historical election results onto newly redrawn maps, separating underlying political trends from structural shifts caused by changing district lines.</p>
   <div class="tag-row">
     <span class="tag">Python / GeoPandas</span>
     <span class="tag">GIS / Spatial Analysis</span>
@@ -398,17 +255,11 @@
 </div>
 
 <!-- PROBLEM -->
-<div class="problem">
-  <div class="problem-inner">
-    <div>
-      <h2>The Problem</h2>
-      <p>When states redraw their political maps, directly comparing election results across cycles becomes challenging. You are looking at different slices of the population each time. A district might appear more Republican or Democratic simply because different neighborhoods got added or removed — not because of any real shift in how people voted.</p>
-      <p>This project aims to address exactly that.</p>
-    </div>
-    <div class="problem-callout">
-      <div class="big">"The lines moved. Did voters actually change — or does it just look that way?"</div>
-      <div class="small">This project answers that question with precision, for any district, before a single new ballot is cast.</div>
-    </div>
+<div style="background: var(--cream); padding: 36px 56px; border-bottom: 1px solid var(--warm-gray);">
+  <div style="max-width: 640px;">
+    <div style="font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color: var(--mid-blue); margin-bottom:8px;">The Problem</div>
+    <p style="font-size:14px; line-height:1.7; color:#3A3A3A; margin-bottom:12px;">When states redraw their political maps, directly comparing election results across cycles becomes challenging. You are looking at different slices of the population each time. A district might appear more Republican or Democratic simply because different neighborhoods got added or removed, not because of any real shift in how people voted.</p>
+    <p style="font-size:14px; line-height:1.7; color:#3A3A3A;">This project aims to address exactly that.</p>
   </div>
 </div>
 
@@ -420,12 +271,12 @@
     <div class="two-col">
       <div>
         <h2>Population-weighted<br>interpolation</h2>
-        <p>Election results are reported at the precinct level. Precincts are the small geographic units — roughly neighborhood-sized — where votes are counted and recorded. They are always the starting point.</p>
+        <p>Election results are reported at the precinct level. Precincts are the small geographic units, roughly neighborhood-sized, where votes are counted and recorded. They are always the starting point.</p>
         <p>When district lines are redrawn, the new boundaries rarely align with old precinct lines. A single precinct might now straddle two different congressional districts. To reconstruct what past elections would have looked like under the new map, you need to split that precinct's votes accurately.</p>
         <p>This pipeline uses three ingredients:</p>
-        <p><strong>Precinct boundaries</strong> — the old map, where election results live.</p>
-        <p><strong>New district boundaries</strong> — the target geography you want to analyze.</p>
-        <p><strong>Census block population data</strong> — the bridge between the two. Census blocks are tiny geographic units each with an exact population count. They tell you where people actually live inside each precinct.</p>
+        <p><strong>Precinct boundaries</strong>, the old map, where election results live.</p>
+        <p><strong>New district boundaries</strong>, the target geography you want to analyze.</p>
+        <p><strong>Census block population data</strong>, the bridge between the two. Census blocks are tiny geographic units. The Census assigns an exact population count to each one. They tell you where people actually live inside each precinct.</p>
         <p>By overlaying census blocks onto both maps, the pipeline calculates what fraction of each precinct's population falls inside each new district. Those fractions become the weights that allocate historical votes to each new district.</p>
       </div>
       <div>
@@ -435,21 +286,22 @@
             <tr>
               <th>Precinct</th>
               <th>District</th>
-              <th>Population</th>
+              <th>Fragment pop.</th>
+              <th>Precinct total pop.</th>
               <th>Weight</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>4530101</td><td>27</td><td>139</td><td>0.007</td></tr>
-            <tr class="highlight"><td>4530101</td><td>37</td><td>19,778</td><td>0.993</td></tr>
-            <tr><td>4530102</td><td>37</td><td>5,854</td><td>1.000</td></tr>
-            <tr><td>4530105</td><td>10</td><td>2,369</td><td>0.068</td></tr>
-            <tr><td>4530105</td><td>11</td><td>228</td><td>0.007</td></tr>
-            <tr><td>4530105</td><td>27</td><td>14,260</td><td>0.410</td></tr>
-            <tr class="highlight"><td>4530105</td><td>37</td><td>17,935</td><td>0.515</td></tr>
+            <tr><td>4530101</td><td>27</td><td>139</td><td>19,917</td><td>0.007</td></tr>
+            <tr class="highlight"><td>4530101</td><td>37</td><td>19,778</td><td>19,917</td><td>0.993</td></tr>
+            <tr><td>4530102</td><td>37</td><td>5,854</td><td>5,854</td><td>1.000</td></tr>
+            <tr><td>4530105</td><td>10</td><td>2,369</td><td>34,792</td><td>0.068</td></tr>
+            <tr><td>4530105</td><td>11</td><td>228</td><td>34,792</td><td>0.007</td></tr>
+            <tr><td>4530105</td><td>27</td><td>14,260</td><td>34,792</td><td>0.410</td></tr>
+            <tr class="highlight"><td>4530105</td><td>37</td><td>17,935</td><td>34,792</td><td>0.515</td></tr>
           </tbody>
         </table>
-        <p class="weight-caption">Each row is one precinct/district fragment. Weights sum to exactly 1.0 per precinct — no votes created or lost. Precinct 4530105 splits across four districts because a district boundary cuts through it.</p>
+        <p class="weight-caption">Weight = fragment population / precinct total pop. Weights sum to exactly 1.0 per precinct — no votes created or lost. Precinct 4530102 falls entirely in District 37 (weight 1.0). Precinct 4530105 splits across four districts.</p>
       </div>
     </div>
   </div>
@@ -460,37 +312,53 @@
   <div class="section">
     <div class="section-label">Proof of Concept</div>
     <h2>Travis County, TX — Phase 1 Pilot</h2>
-    <p>Texas redrew its congressional maps in 2025. Travis County (Austin) became a test case for exactly the kind of structural shift this pipeline is designed to quantify.</p>
+    <p>Texas redrew its congressional maps in 2025. Travis County (Austin) was the first county we tested — and it illustrates exactly the kind of structural shift this pipeline is designed to quantify.</p>
 
-    <div class="case-study">
-      <h3>What the redistricting actually did to Travis County</h3>
-      <div class="stat-row">
-        <div class="stat">
-          <span class="number">247</span>
-          <span class="label">Travis County precincts in the pilot</span>
+    <!-- BEFORE / AFTER BANNER -->
+    <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:0; margin:28px 0; border-radius:12px; overflow:hidden; border:1px solid var(--warm-gray);">
+      <div style="background:#f0f7ff; padding:28px 32px;">
+        <div style="font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#185FA5; margin-bottom:12px;">2021 map — before</div>
+        <div style="font-family:'DM Serif Display',serif; font-size:48px; color:#0D1B2A; line-height:1;">38%</div>
+        <div style="font-size:13px; color:#3A3A3A; margin-top:8px; line-height:1.5;">Travis County's share of<br><strong>District 35 (D35)</strong>, a competitive seat<br>where Austin voters had real influence</div>
+      </div>
+      <div style="background:#0D1B2A; display:flex; align-items:center; justify-content:center; padding:0 20px;">
+        <div style="color:white; font-size:24px;">→</div>
+      </div>
+      <div style="background:#fff5f5; padding:28px 32px;">
+        <div style="font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#A32D2D; margin-bottom:12px;">2026 map — after</div>
+        <div style="font-family:'DM Serif Display',serif; font-size:48px; color:#0D1B2A; line-height:1;">19%</div>
+        <div style="font-size:13px; color:#3A3A3A; margin-top:8px; line-height:1.5;">Travis County's share of<br><strong>District 11</strong>, which replaced D35<br>at half its population footprint</div>
+      </div>
+    </div>
+
+    <div style="background:white; border-radius:10px; border:1px solid var(--warm-gray); padding:20px 24px; margin-bottom:20px;">
+      <p style="font-size:13px; color:#444; line-height:1.7;">District 35 was eliminated entirely in the 2025 redraw. Its replacement, District 11, gives Travis County voters only 19% of the district's population. Meanwhile, District 37 became 98% Travis County, concentrated but not influential across the surrounding competitive seats. The pipeline quantified this shift before a single 2026 ballot was cast, with zero vote leakage across all 247 Travis County precincts.</p>
+      <div style="display:flex; gap:24px; margin-top:16px; padding-top:16px; border-top:1px solid var(--warm-gray);">
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:28px; color:#0D1B2A;">247</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:2px;">precincts in pilot</div>
         </div>
-        <div class="stat highlight-stat">
-          <span class="number">38% → 19%</span>
-          <span class="label">Travis County's share of District 35, now replaced by District 11</span>
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:28px; color:#0D1B2A;">98%</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:2px;">District 37 is Travis County</div>
         </div>
-        <div class="stat">
-          <span class="number">0.0</span>
-          <span class="label">Vote leakage — exact preservation of all vote totals</span>
+        <div>
+          <div style="font-family:'DM Serif Display',serif; font-size:28px; color:#0D1B2A;">0.0</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:2px;">vote leakage</div>
         </div>
       </div>
-      <p style="font-size:13px; color: #444;">Under the 2021 map, Travis County held 38% of District 35's population — a meaningful competitive seat where Austin-area voters had real influence. The 2026 map eliminated District 35 entirely. Its replacement, District 11, gives Travis County only 19% of the population. Meanwhile, District 37 became 98% Travis County — concentrated, not influential across competitive seats.</p>
     </div>
 
     <div class="figure-wrap" style="margin-top:20px;">
       <img src="https://raw.githubusercontent.com/bluebonnet-data/bb-unified-election-data/main/docs/images/redistricting_2021.png" alt="2021 Travis County district map and population shares" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-      <div style="display:none; padding:40px; text-align:center; background:#f5f5f5; color:#999; font-size:13px;">2021 redistricting figure — visible in the repo at docs/images/redistricting_2021.png</div>
-      <div class="figure-caption">2021 map: Travis County's district footprint. District 35 (38% Travis County) was the key competitive seat.</div>
+      <div style="display:none; padding:40px; text-align:center; background:#f5f5f5; color:#999; font-size:13px;">2021 redistricting figure</div>
+      <div class="figure-caption">2021 map: Travis County's district footprint. District 35 (38% Travis County) was a meaningful competitive seat. District 37 was 89% Travis County.</div>
     </div>
 
     <div class="figure-wrap">
       <img src="https://raw.githubusercontent.com/bluebonnet-data/bb-unified-election-data/main/docs/images/redistricting_2026.png" alt="2026 Travis County district map and population shares" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-      <div style="display:none; padding:40px; text-align:center; background:#f5f5f5; color:#999; font-size:13px;">2026 redistricting figure — visible in the repo at docs/images/redistricting_2026.png</div>
-      <div class="figure-caption">2026 map: District 35 eliminated. Travis County's footprint in competitive districts cut nearly in half.</div>
+      <div style="display:none; padding:40px; text-align:center; background:#f5f5f5; color:#999; font-size:13px;">2026 redistricting figure</div>
+      <div class="figure-caption">2026 map: District 35 eliminated, replaced by District 11 at 19% Travis County. District 37 grew to 98% Travis County, packed but less influential across competitive seats.</div>
     </div>
   </div>
 
@@ -499,22 +367,22 @@
   <!-- WHO -->
   <div class="section">
     <div class="section-label">Who This Is For</div>
-    <h2>Built for campaigns<br>and organizers</h2>
+    <h2>Built for campaigns,<br>organizers, and citizens</h2>
     <div class="who-grid">
       <div class="who-card">
         <span class="icon">🏛️</span>
         <h4>Congressional Campaigns</h4>
-        <p>See true multi-cycle performance within newly redrawn lines. Know your real historical baseline before canvassing begins.</p>
+        <p>See true multi-cycle performance within newly redrawn district lines.</p>
       </div>
       <div class="who-card">
         <span class="icon">🗳️</span>
         <h4>Down-Ballot Campaigns</h4>
-        <p>Pinpoint base neighborhoods and high-leverage persuasion zones. Stop wasting resources on outdated geography.</p>
+        <p>Pinpoint base neighborhoods and stop wasting resources on outdated geography.</p>
       </div>
       <div class="who-card">
-        <span class="icon">📋</span>
-        <h4>Field Directors</h4>
-        <p>Prioritize door-knocking lists using true precinct trajectories, not historical data that no longer maps to today's lines.</p>
+        <span class="icon">🔍</span>
+        <h4>Researchers and Engaged Citizens</h4>
+        <p>Pull up any district and see its full electoral history on today's map.</p>
       </div>
     </div>
   </div>
@@ -523,22 +391,115 @@
 
   <!-- ROADMAP -->
   <div class="section">
-    <div class="section-label">What We Are Building Next</div>
+    <div class="section-label">What We Are Building</div>
     <h2>Phase 2 and beyond</h2>
-    <div class="two-col">
-      <div>
-        <p>Phase 1 proved the methodology works in Travis County. The next steps scale it into a production-grade tool.</p>
-        <p><strong>Time series (Issue #10):</strong> Adding 2016, 2018, 2022, and 2024 election cycles so campaigns can see trends, not just snapshots.</p>
-        <p><strong>County scaling (Issue #11):</strong> Generalizing the pipeline to a second Texas county to validate it works across different geographies.</p>
-        <p><strong>Statewide architecture (Issue #12):</strong> Designing the database framework to handle all 254 Texas counties.</p>
-        <p><strong>Dashboard:</strong> The weights tables are the foundation. Once built, campaigns, organizers, researchers, and engaged citizens can pull up any congressional district and see its full electoral history visualized on today's map — making it clear what is a real political shift and what is simply the result of lines being redrawn. Working name TBD — suggestions welcome.</p>
+    <div style="margin-bottom: 24px;">
+      <p>Phase 1 proved the methodology works in Travis County. The next steps scale it into a tool campaigns can actually use.</p>
+      <p style="margin-top:10px;"><strong>Time series:</strong> Adding 2016, 2018, 2022, and 2024 election cycles so campaigns can see trends, not just snapshots.</p>
+      <p style="margin-top:6px;"><strong>County scaling:</strong> Generalizing the pipeline to a second Texas county to validate it works across different geographies.</p>
+      <p style="margin-top:6px;"><strong>Statewide architecture:</strong> Designing the database framework to handle all 254 Texas counties.</p>
+      <p style="margin-top:6px;"><strong>Dashboard:</strong> The weights tables are the foundation. Campaigns, organizers, researchers, and engaged citizens will be able to pull up any congressional district and see its full electoral history visualized on today's map, making it clear what is a real political shift and what is simply the result of lines being redrawn.</p>
+    </div>
+
+    <p style="font-size:12px; font-weight:600; color: var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;">Dashboard prototype — Phase 1 pilot data</p>
+
+    <div style="border-radius:12px; overflow:hidden; border:1px solid var(--warm-gray);">
+      <div style="background:#0D1B2A; padding:12px 20px; display:flex; align-items:center; justify-content:space-between;">
+        <div>
+          <div style="color:white; font-size:15px; font-weight:500;">Power Shift Navigator</div>
+          <div style="color:rgba(255,255,255,0.5); font-size:12px; margin-top:1px;">Travis County, TX — 2026 congressional boundaries</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.1); border:0.5px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.7); font-size:11px; padding:4px 10px; border-radius:20px;">Phase 1 pilot</div>
       </div>
-      <div class="figure-wrap" style="margin-top:0;">
-        <img src="https://raw.githubusercontent.com/bluebonnet-data/bb-unified-election-data/main/docs/images/travis_vote_share.png" alt="Travis County 2020 vote share by 2026 district" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-        <div style="display:none; padding:40px; text-align:center; background:#f5f5f5; color:#999; font-size:13px;">Vote share figure — visible in the repo at docs/images/travis_vote_share.png</div>
-        <div class="figure-caption">Estimated 2020 Presidential results by 2026 congressional district — Travis County contributions. This is what the pipeline produces.</div>
+
+      <div style="background:#f5f5f0; border-bottom:1px solid var(--warm-gray); display:flex; padding:0 20px; gap:4px;">
+        <div style="font-size:13px; padding:10px 14px; border-bottom:2px solid #185FA5; color:#185FA5; display:flex; align-items:center; gap:6px;">&#9776; List view</div>
+        <div style="font-size:13px; padding:10px 14px; border-bottom:2px solid transparent; color:#999; display:flex; align-items:center; gap:6px;">&#9633; Map view <span style="font-size:10px; margin-left:4px; opacity:0.6;">coming soon</span></div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 320px; min-height:440px;">
+        <div style="background:white; border-right:1px solid var(--warm-gray); padding:16px;">
+          <div style="font-size:11px; color:#888; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;">Select a district</div>
+          <div style="display:flex; flex-direction:column; gap:6px;" id="dlist">
+            <button onclick="psn(10)" data-d="10" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;border:1px solid #185FA5;background:#E6F1FB;cursor:pointer;text-align:left;width:100%;">
+              <div style="width:14px;height:14px;border-radius:3px;flex-shrink:0;background:#B5D4F4;border:1px solid #185FA5;"></div>
+              <div><div style="font-size:13px;font-weight:500;color:#1C1C1C;">District 10</div><div style="font-size:11px;color:#888;margin-top:1px;">Northwest Travis County</div></div>
+              <div style="margin-left:auto;font-size:12px;font-weight:500;color:#888;">38% Travis</div>
+            </button>
+            <button onclick="psn(11)" data-d="11" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;border:0.5px solid #ddd;background:white;cursor:pointer;text-align:left;width:100%;">
+              <div style="width:14px;height:14px;border-radius:3px;flex-shrink:0;background:#FAC775;border:1px solid #854F0B;"></div>
+              <div><div style="font-size:13px;font-weight:500;color:#1C1C1C;">District 11</div><div style="font-size:11px;color:#888;margin-top:1px;">North Travis County</div></div>
+              <div style="margin-left:auto;font-size:12px;font-weight:500;color:#888;">19% Travis</div>
+            </button>
+            <button onclick="psn(17)" data-d="17" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;border:0.5px solid #ddd;background:white;cursor:pointer;text-align:left;width:100%;">
+              <div style="width:14px;height:14px;border-radius:3px;flex-shrink:0;background:#AFA9EC;border:1px solid #534AB7;"></div>
+              <div><div style="font-size:13px;font-weight:500;color:#1C1C1C;">District 17</div><div style="font-size:11px;color:#888;margin-top:1px;">Northeast edge</div></div>
+              <div style="margin-left:auto;font-size:12px;font-weight:500;color:#888;">&lt;1% Travis</div>
+            </button>
+            <button onclick="psn(21)" data-d="21" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;border:0.5px solid #ddd;background:white;cursor:pointer;text-align:left;width:100%;">
+              <div style="width:14px;height:14px;border-radius:3px;flex-shrink:0;background:#F0997B;border:1px solid #993C1D;"></div>
+              <div><div style="font-size:13px;font-weight:500;color:#1C1C1C;">District 21</div><div style="font-size:11px;color:#888;margin-top:1px;">West Travis County</div></div>
+              <div style="margin-left:auto;font-size:12px;font-weight:500;color:#888;">&lt;1% Travis</div>
+            </button>
+            <button onclick="psn(27)" data-d="27" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;border:0.5px solid #ddd;background:white;cursor:pointer;text-align:left;width:100%;">
+              <div style="width:14px;height:14px;border-radius:3px;flex-shrink:0;background:#9FE1CB;border:1px solid #0F6E56;"></div>
+              <div><div style="font-size:13px;font-weight:500;color:#1C1C1C;">District 27</div><div style="font-size:11px;color:#888;margin-top:1px;">Southeast Travis County</div></div>
+              <div style="margin-left:auto;font-size:12px;font-weight:500;color:#888;">13% Travis</div>
+            </button>
+            <button onclick="psn(31)" data-d="31" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;border:0.5px solid #ddd;background:white;cursor:pointer;text-align:left;width:100%;">
+              <div style="width:14px;height:14px;border-radius:3px;flex-shrink:0;background:#F7C1C1;border:1px solid #A32D2D;"></div>
+              <div><div style="font-size:13px;font-weight:500;color:#1C1C1C;">District 31</div><div style="font-size:11px;color:#888;margin-top:1px;">Northeast Travis County</div></div>
+              <div style="margin-left:auto;font-size:12px;font-weight:500;color:#888;">&lt;1% Travis</div>
+            </button>
+            <button onclick="psn(37)" data-d="37" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;border:0.5px solid #ddd;background:white;cursor:pointer;text-align:left;width:100%;">
+              <div style="width:14px;height:14px;border-radius:3px;flex-shrink:0;background:#C0DD97;border:1px solid #3B6D11;"></div>
+              <div><div style="font-size:13px;font-weight:500;color:#1C1C1C;">District 37</div><div style="font-size:11px;color:#888;margin-top:1px;">Central Austin</div></div>
+              <div style="margin-left:auto;font-size:12px;font-weight:500;color:#888;">98% Travis</div>
+            </button>
+          </div>
+        </div>
+
+        <div style="background:white; padding:20px; display:flex; flex-direction:column; gap:16px;">
+          <div style="border-bottom:1px solid var(--warm-gray); padding-bottom:14px;">
+            <div style="font-size:18px; font-weight:500; color:#1C1C1C; margin-bottom:4px;" id="psn-title">District 10</div>
+            <div style="font-size:13px; color:#888;" id="psn-sub">Travis County = 38% of district population</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div style="background:#f5f5f0; border-radius:8px; padding:10px 12px;">
+              <div style="font-size:11px; color:#888; margin-bottom:4px;">Biden (D) 2020</div>
+              <div style="font-size:20px; font-weight:500; color:#185FA5;" id="psn-biden">59%</div>
+            </div>
+            <div style="background:#f5f5f0; border-radius:8px; padding:10px 12px;">
+              <div style="font-size:11px; color:#888; margin-bottom:4px;">Trump (R) 2020</div>
+              <div style="font-size:20px; font-weight:500; color:#A32D2D;" id="psn-trump">41%</div>
+            </div>
+          </div>
+          <div style="background:#f5f5f0; border-radius:8px; padding:12px;">
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:#888; margin-bottom:8px;">Travis County contribution — 2020 presidential</div>
+            <div style="height:28px; border-radius:4px; display:flex; overflow:hidden; margin:8px 0;">
+              <div id="psn-dem" style="background:#185FA5; width:59%; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:500; transition:width 0.4s;">59%</div>
+              <div id="psn-rep" style="background:#A32D2D; width:41%; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:500; transition:width 0.4s;">41%</div>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:11px; color:#888;"><span>Democrat</span><span>Republican</span></div>
+          </div>
+          <div>
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:#888; margin-bottom:8px;">Election cycle</div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <div style="font-size:11px; padding:4px 10px; border-radius:20px; background:#E6F1FB; color:#185FA5; border:0.5px solid #185FA5; font-weight:500;">2020</div>
+              <div style="font-size:11px; padding:4px 10px; border-radius:20px; background:#f5f5f0; color:#888; border:0.5px solid #ddd; opacity:0.5;">2016</div>
+              <div style="font-size:11px; padding:4px 10px; border-radius:20px; background:#f5f5f0; color:#888; border:0.5px solid #ddd; opacity:0.5;">2018</div>
+              <div style="font-size:11px; padding:4px 10px; border-radius:20px; background:#f5f5f0; color:#888; border:0.5px solid #ddd; opacity:0.5;">2022</div>
+              <div style="font-size:11px; padding:4px 10px; border-radius:20px; background:#f5f5f0; color:#888; border:0.5px solid #ddd; opacity:0.5;">2024</div>
+            </div>
+            <div style="font-size:11px; color:#888; font-style:italic; margin-top:6px;">Additional cycles coming in Phase 2</div>
+          </div>
+          <div style="background:#f5f5f0; border-left:3px solid #185FA5; border-radius:0 8px 8px 0; padding:12px;">
+            <div style="font-size:12px; color:#1C1C1C; line-height:1.6;" id="psn-insight">District 10 is the most competitive district in Travis County. With Travis County making up 38% of the district, Austin-area voters are significant but not dominant, making this a key swing seat to watch.</div>
+          </div>
+        </div>
       </div>
     </div>
+    <p style="font-size:11px; color:var(--muted); font-style:italic; margin-top:10px; text-align:center;">Dashboard name TBD — we would love your suggestions.</p>
   </div>
 
 </div>
@@ -551,6 +512,37 @@
   </div>
   <a class="footer-link" href="https://github.com/bluebonnet-data/bb-unified-election-data">View the repo →</a>
 </div>
+
+<script>
+const psnData = {
+  10: { title:'District 10', sub:'Travis County = 38% of district population', biden:59, trump:41, insight:'District 10 is the most competitive district in Travis County. With Travis County making up 38% of the district, Austin-area voters are significant but not dominant, making this a key swing seat to watch.' },
+  11: { title:'District 11', sub:'Travis County = 19% of district population', biden:65, trump:35, insight:'District 11 replaced District 35 in the 2025 redraw. Travis County\'s share dropped from 38% to 19%, cutting Austin-area influence in this seat nearly in half.' },
+  17: { title:'District 17', sub:'Travis County = less than 1% of district population', biden:56, trump:44, insight:'Travis County is a negligible part of District 17. This district is largely defined by communities well outside Austin.' },
+  21: { title:'District 21', sub:'Travis County = less than 1% of district population', biden:54, trump:46, insight:'Travis County barely registers in District 21. The small sliver that falls inside Travis County has minimal impact on overall district outcomes.' },
+  27: { title:'District 27', sub:'Travis County = 13% of district population', biden:69, trump:31, insight:'Travis County contributes 13% of District 27\'s population. The Travis County portion leans heavily Democratic, but the district extends well beyond Austin.' },
+  31: { title:'District 31', sub:'Travis County = less than 1% of district population', biden:39, trump:61, insight:'District 31 is the only district in this set where Trump led among Travis County voters. Even so, Travis County is less than 1% of the district, so its influence here is minimal.' },
+  37: { title:'District 37', sub:'Travis County = 98% of district population', biden:81, trump:19, insight:'District 37 is almost entirely Travis County. This is the most Democratic district in the set, but it is packed, meaning those votes have limited reach across other competitive seats.' }
+};
+function psn(d) {
+  document.querySelectorAll('#dlist button').forEach(b => {
+    b.style.border = '0.5px solid #ddd';
+    b.style.background = 'white';
+  });
+  const btn = document.querySelector('[data-d="'+d+'"]');
+  btn.style.border = '1px solid #185FA5';
+  btn.style.background = '#E6F1FB';
+  const r = psnData[d];
+  document.getElementById('psn-title').textContent = r.title;
+  document.getElementById('psn-sub').textContent = r.sub;
+  document.getElementById('psn-biden').textContent = r.biden+'%';
+  document.getElementById('psn-trump').textContent = r.trump+'%';
+  document.getElementById('psn-dem').style.width = r.biden+'%';
+  document.getElementById('psn-dem').textContent = r.biden+'%';
+  document.getElementById('psn-rep').style.width = r.trump+'%';
+  document.getElementById('psn-rep').textContent = r.trump+'%';
+  document.getElementById('psn-insight').textContent = r.insight;
+}
+</script>
 
 </body>
 </html>
