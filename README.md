@@ -4,6 +4,7 @@ When states redraw their political maps, directly comparing election results acr
 
 This project aims to translate past election results onto current maps so campaigns can see how any district or neighborhood has genuinely trended over time. We are starting with Texas, where a 2025 mid-decade redraw created an urgent need for exactly this kind of historical context.
 
+📄 **Project overview:** https://bluebonnet-data.github.io/bb-unified-election-data/onepager.html
 
 ## Why this matters
 
