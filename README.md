@@ -12,7 +12,7 @@ By standardizing historical votes onto today's exact district and precinct bound
 
 - Unmasking map changes: Quantifies exactly who a new map helps or hurts before a single new ballot is cast.
 - Neighborhood-level trends: Bypasses years of messy, shifting precinct lines to reveal clear, multi-cycle political trajectories for stable geographic communities.
-- Resource precision: Stops campaigns from making decisions based on outdated geographic boundaries.
+- Resource precision: Enables campaigns to make decisions based on current geographic boundaries, not outdated maps.
 
 ## Who this is for
 
