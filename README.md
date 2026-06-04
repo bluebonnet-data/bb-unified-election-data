@@ -12,13 +12,13 @@ By standardizing historical votes onto today's exact district and precinct bound
 
 - Unmasking map changes: Quantifies exactly who a new map helps or hurts before a single new ballot is cast.
 - Neighborhood-level trends: Bypasses years of messy, shifting precinct lines to reveal clear, multi-cycle political trajectories for stable geographic communities.
-- Resource precision: Stops campaigns from wasting limited time and money based on obsolete boundaries, shifting field strategy from guesswork to evidence-backed analysis.
+- Resource precision: Stops campaigns from making decisions based on outdated geographic boundaries.
 
 ## Who this is for
 
-- Congressional Campaigns: Track true multi-cycle performance instantly within newly redrawn lines.
-- Down-Ballot Campaigns: Pinpoint your baseline neighborhoods and high-leverage persuasion zones to protect tight budgets.
-- Field Directors & Organizers: Prioritize door-knocking lists using true precinct trajectories, not un-adjusted historical data.
+- Congressional Campaigns: See true multi-cycle performance within newly redrawn district lines.
+- Down-Ballot Campaigns: Pinpoint base neighborhoods and direct resources using current geography, not outdated maps.
+- Researchers and Engaged Citizens: Pull up any district and see its full electoral history on today's map.
 
 ## Two things we are building
 
@@ -41,7 +41,7 @@ Tracks localized political trajectories across multiple cycles, independent of s
 | #7 | Vote interpolation 2020 Presidential | Done |
 | #8 | Methodology documentation | Done |
 
-2020 Presidential results successfully mapped onto 7 new congressional districts touching Travis County with zero vote leakage. Travis County's redistricting impact quantified — District 35 (38% Travis County) eliminated and replaced by District 11 (19%). See notebooks/04_vote_interpolation.ipynb.
+2020 Presidential results successfully mapped onto 7 new congressional districts touching Travis County with zero vote leakage. Travis County's redistricting impact quantified — District 35 (38% Travis County) eliminated and District 11, the district with the next largest Travis County footprint (19%). See notebooks/04_vote_interpolation.ipynb.
 
 ### Next steps
 
@@ -49,7 +49,7 @@ Tracks localized political trajectories across multiple cycles, independent of s
 - Build precinct-level time series on consistent boundaries (Issue #9)
 - Scale district-level engine to a second Texas county (Issue #11)
 - Design statewide scaling architecture for all 254 counties (Issue #12)
-- Build the Power Shift Navigator dashboard
+- Build the Unified Election Data Project dashboard
 
 ## Repo structure
 
