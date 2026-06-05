@@ -251,11 +251,16 @@
       display: flex !important;
       flex-direction: column !important;
     }
-    .banner-arrow {
-      padding: 12px 0 !important;
-      min-height: 44px !important;
-      transform: none !important;
-    }
+.banner-arrow {
+  padding: 12px 0 !important;
+  min-height: 44px !important;
+  transform: none !important;
+  font-size: 0 !important;
+}
+.banner-arrow::after {
+  content: '↓';
+  font-size: 20px;
+}
 
     /* Who grid stacks */
     .who-grid { grid-template-columns: 1fr !important; }
