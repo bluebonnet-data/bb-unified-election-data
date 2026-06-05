@@ -247,17 +247,14 @@
     /* Weight table scrollable */
     .weight-table { display: block; overflow-x: auto; white-space: nowrap; }
 
-    /* Before/after banner stacks */
-    #before-after {
+#before-after {
       display: flex !important;
       flex-direction: column !important;
     }
     .banner-arrow {
       padding: 12px 0 !important;
       min-height: 44px !important;
-    }
-    .banner-arrow div {
-      transform: rotate(90deg) !important;
+      transform: none !important;
     }
 
     /* Who grid stacks */
@@ -373,39 +370,44 @@
     <h2>Travis County, TX — Phase 1 Pilot</h2>
     <p>Texas redrew its congressional maps in 2025. Travis County (Austin) served as our proof of concept, illustrating exactly the kind of structural shift this pipeline is designed to quantify.</p>
 
-    <!-- BEFORE / AFTER BANNER -->
-    <div id="before-after" style="display:grid; grid-template-columns:1fr auto 1fr; gap:0; margin:28px 0; border-radius:12px; overflow:hidden; border:1px solid var(--warm-gray);">
+<!-- BEFORE / AFTER BANNER -->
+    <div id="before-after" style="display:grid; grid-template-columns:1fr 40px 1fr; border-radius:12px; overflow:hidden; border:1px solid var(--warm-gray); margin:28px 0;">
       <div style="background:#E0DDD8; padding:28px 32px;">
-        <div style="font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#185FA5; margin-bottom:12px;">2021 map — before</div>
-        <div style="font-family:'DM Serif Display',serif; font-size:48px; color:#0D1B2A; line-height:1;">38%</div>
-        <div style="font-size:13px; color:#3A3A3A; margin-top:8px; line-height:1.5;">Travis County's share of<br><strong>District 35 (D35)</strong>, a competitive seat<br>where Austin voters had real influence</div>
+        <div style="font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#5F5E5A; margin-bottom:12px;">2021 map — before</div>
+        <div style="font-family:'DM Serif Display',serif; font-size:52px; color:#0D1B2A; line-height:1; margin-bottom:12px;">38%</div>
+        <div style="font-size:13px; color:#3A3A3A; line-height:1.6;">Travis County's share of <strong>District 35 (D35)</strong>, a competitive seat where Austin voters had real influence</div>
       </div>
-      <div class="banner-arrow" style="background:#0D1B2A; display:flex; align-items:center; justify-content:center; padding:0 20px;">
-        <div style="color:white; font-size:24px;">→</div>
-      </div>
+      <div class="banner-arrow" style="background:#0D1B2A; display:flex; align-items:center; justify-content:center; color:white; font-size:20px;">→</div>
       <div style="background:#2C3E50; padding:28px 32px;">
-        <div style="font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:12px;">2026 map — after</div>
-        <div style="font-family:'DM Serif Display',serif; font-size:48px; color:white; line-height:1;">19%</div>
-        <div style="font-size:13px; color:rgba(255,255,255,0.75); margin-top:8px; line-height:1.5;">D35 was eliminated. <strong style="color:white;">District 11</strong> now holds the second largest share of Travis County at 19%</div>
+        <div style="font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:8px;">2026 map — after</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.85); line-height:1.5; margin-bottom:10px;">D35 was eliminated. Travis County's population was redistributed across the remaining districts.</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.07); border-radius:6px; padding:7px 12px;">
+            <span style="font-size:12px; color:rgba(255,255,255,0.7);">District 37</span>
+            <span style="font-size:12px; color:white; font-weight:500;">89% → 98%</span>
+            <span style="font-size:11px; color:#9FE1CB; font-weight:500;">+9%</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.07); border-radius:6px; padding:7px 12px;">
+            <span style="font-size:12px; color:rgba(255,255,255,0.7);">District 10</span>
+            <span style="font-size:12px; color:white; font-weight:500;">26% → 38%</span>
+            <span style="font-size:11px; color:#9FE1CB; font-weight:500;">+12%</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.07); border-radius:6px; padding:7px 12px;">
+            <span style="font-size:12px; color:rgba(255,255,255,0.7);">District 11</span>
+            <span style="font-size:12px; color:white; font-weight:500;">0% → 19%</span>
+            <span style="font-size:11px; color:#9FE1CB; font-weight:500;">+19%</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.07); border-radius:6px; padding:7px 12px;">
+            <span style="font-size:12px; color:rgba(255,255,255,0.7);">District 27</span>
+            <span style="font-size:12px; color:white; font-weight:500;">&lt;1% → 13%</span>
+            <span style="font-size:11px; color:#9FE1CB; font-weight:500;">+13%</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div style="background:white; border-radius:10px; border:1px solid var(--warm-gray); padding:20px 24px; margin-bottom:20px;">
-      <p style="font-size:13px; color:#444; line-height:1.7;">District 35 was eliminated entirely in the 2025 redraw. District 11, the district with the next largest Travis County footprint, gives Austin-area voters only 19% of the district's population. Meanwhile, District 37 became 98% Travis County, concentrated but not influential across the surrounding competitive seats. The pipeline quantified this shift before a single 2026 ballot was cast, with zero vote leakage across all 247 Travis County precincts.</p>
-      <div style="display:flex; gap:24px; margin-top:16px; padding-top:16px; border-top:1px solid var(--warm-gray);">
-        <div>
-          <div style="font-family:'DM Serif Display',serif; font-size:28px; color:#0D1B2A;">247</div>
-          <div style="font-size:11px; color:var(--muted); margin-top:2px;">precincts in pilot</div>
-        </div>
-        <div>
-          <div style="font-family:'DM Serif Display',serif; font-size:28px; color:#0D1B2A;">98%</div>
-          <div style="font-size:11px; color:var(--muted); margin-top:2px;">District 37 is Travis County</div>
-        </div>
-        <div>
-          <div style="font-family:'DM Serif Display',serif; font-size:28px; color:#0D1B2A;">0.0</div>
-          <div style="font-size:11px; color:var(--muted); margin-top:2px;">vote leakage</div>
-        </div>
-      </div>
+<div style="background:white; border-radius:10px; border:1px solid var(--warm-gray); padding:20px 24px; margin-bottom:20px;">
+      <p style="font-size:13px; color:#444; line-height:1.7;">District 35 was eliminated entirely in the 2025 redraw. Its Travis County population was dispersed across four districts. The pipeline quantified this shift before a single 2026 ballot was cast, with zero vote leakage across all 247 Travis County precincts.</p>
     </div>
 
     <div class="figure-wrap" style="margin-top:20px;">
