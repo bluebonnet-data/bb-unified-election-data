@@ -41,7 +41,7 @@ Tracks localized political trajectories across multiple cycles, independent of s
 | #7 | Vote interpolation 2020 Presidential | Done |
 | #8 | Methodology documentation | Done |
 
-2020 Presidential results successfully mapped onto 7 new congressional districts touching Travis County with zero vote leakage. Travis County's redistricting impact quantified — District 35 (38% Travis County) eliminated and District 11, the district with the next largest Travis County footprint (19%). See notebooks/04_vote_interpolation.ipynb.
+2020 Presidential results successfully mapped onto 7 new congressional districts touching Travis County with zero vote leakage. District 35 (38% Travis County) was eliminated in the 2025 redraw. Its population was dispersed across Districts 37, 10, 11, and 27. See notebooks/04_vote_interpolation.ipynb.
 
 ### Next steps
 
