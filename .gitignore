@@ -32,3 +32,5 @@ detailtxt.zip
 summary.csv
 summary.zip
 PLANC2193.zip
+data/raw/election_results/HOUSE_precinct_general_*.csv
+data/raw/election_results/HOUSE_precinct_general_*.tab
