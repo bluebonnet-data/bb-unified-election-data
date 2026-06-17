@@ -429,14 +429,15 @@
   </div>
 
 <div style="margin-top: 2rem;">
-  <h3>Isolating Partisan Shifts Over Time</h3>
-  <p>By normalizing these structural map changes to the new 2026 baseline, the pipeline unlocks the ability to track true political trends across a decade. When the noise of changing precinct lines is removed, the longitudinal data reveals how the underlying population actually shifted from 2016 to 2024.</p>
-  <img src="images/travis_house_maps.png"
-       alt="U.S. House two-party vote share maps by 2026 district, Travis County, 2016–2024"
-       style="width: 100%; max-width: 900px; display: block; margin: 0 auto;">
-  <p style="text-align: center; font-size: 0.85rem; color: #666; margin-top: 0.5rem;">
-    Multi-cycle U.S. House two-party vote shares normalized to the 2026 congressional district map baseline. Shading indicates partisan lean (Red: Republican, Blue: Democratic), illustrating localized political shifts over a ten-year horizon independent of boundary changes.
-  </p>
+  <h4 style="margin-bottom: 0.5rem;">Isolating Partisan Shifts Over Time</h4>
+  <p style="margin-bottom: 1.5rem;">By normalizing these structural map changes to the new 2026 baseline, the pipeline unlocks the ability to track true political trends across a decade. When the noise of changing precinct lines is removed, the longitudinal data reveals how the underlying population actually shifted from 2016 to 2024.</p>
+  <div class="figure-wrap" style="background: white; padding: 1rem; border-radius: 8px;">
+    <img src="images/travis_house_maps.png"
+         alt="U.S. House two-party vote share maps by 2026 district, Travis County, 2016–2024"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <div style="display:none; padding:40px; text-align:center; background:#f5f5f5; color:#999; font-size:13px;">Travis County time series figure</div>
+  </div>
+  <div class="figure-caption">Multi-cycle U.S. House two-party vote shares normalized to the 2026 congressional district map baseline. Shading indicates partisan lean (Red: Republican, Blue: Democratic), illustrating localized political shifts over a ten-year horizon independent of boundary changes.</div>
 </div>
 
   <div class="divider"></div>
@@ -472,7 +473,7 @@
     <h2>Phase 2 and beyond</h2>
     <div style="margin-bottom: 24px;">
       <p>Phase 1 proved the methodology works in Travis County. The next steps scale it into a tool campaigns can actually use.</p>
-      <p style="margin-top:10px;"><strong>Time series:</strong> Adding 2016, 2018, 2022, and 2024 election cycles so campaigns can see trends, not just snapshots.</p>
+      <p style="margin-top:10px;"><strong>Time series integration:</strong> Expanding the 2016–2024 multi-cycle baseline demonstrated in the pilot to scale across new geographies, ensuring campaigns see longitudinal trends rather than single snapshots.</p>
       <p style="margin-top:6px;"><strong>County scaling:</strong> Generalizing the pipeline to a second Texas county to validate it works across different geographies.</p>
       <p style="margin-top:6px;"><strong>Statewide architecture:</strong> Designing the database framework to handle all 254 Texas counties.</p>
       <p style="margin-top:6px;"><strong>Dashboard:</strong> The weights tables are the foundation. Campaigns, organizers, researchers, and engaged citizens will be able to pull up any congressional district and see its full electoral history visualized on today's map, making it clear what is a real political shift and what is simply the result of lines being redrawn.</p>
