@@ -544,16 +544,16 @@
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
             <div style="background:#f5f5f0; border-radius:8px; padding:10px 12px;">
-              <div style="font-size:11px; color:#888; margin-bottom:4px;">Biden (D) 2020</div>
-              <div style="font-size:20px; font-weight:500; color:#185FA5;" id="psn-biden">59%</div>
+              <div style="font-size:11px; color:#888; margin-bottom:4px;">Democrat — 2020</div>
+              <div style="font-size:20px; font-weight:500; color:#185FA5;" id="psn-biden">55%</div>
             </div>
             <div style="background:#f5f5f0; border-radius:8px; padding:10px 12px;">
-              <div style="font-size:11px; color:#888; margin-bottom:4px;">Trump (R) 2020</div>
-              <div style="font-size:20px; font-weight:500; color:#A32D2D;" id="psn-trump">41%</div>
+              <div style="font-size:11px; color:#888; margin-bottom:4px;">Republican — 2020</div>
+              <div style="font-size:20px; font-weight:500; color:#A32D2D;" id="psn-trump">45%</div>
             </div>
           </div>
           <div style="background:#f5f5f0; border-radius:8px; padding:12px;">
-            <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:#888; margin-bottom:8px;">Travis County contribution — 2020 presidential</div>
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:#888; margin-bottom:8px;">Travis County contribution — 2020 U.S. House</div>
             <div style="height:28px; border-radius:4px; display:flex; overflow:hidden; margin:8px 0;">
               <div id="psn-dem" style="background:#185FA5; width:59%; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:500; transition:width 0.4s;">59%</div>
               <div id="psn-rep" style="background:#A32D2D; width:41%; display:flex; align-items:center; justify-content:center; color:white; font-size:12px; font-weight:500; transition:width 0.4s;">41%</div>
@@ -569,7 +569,6 @@
               <div style="font-size:11px; padding:4px 10px; border-radius:20px; background:#f5f5f0; color:#888; border:0.5px solid #ddd; opacity:0.5;">2022</div>
               <div style="font-size:11px; padding:4px 10px; border-radius:20px; background:#f5f5f0; color:#888; border:0.5px solid #ddd; opacity:0.5;">2024</div>
             </div>
-            <div style="font-size:11px; color:#888; font-style:italic; margin-top:6px;">Additional cycles coming in Phase 2</div>
           </div>
           <div style="background:#f5f5f0; border-left:3px solid #185FA5; border-radius:0 8px 8px 0; padding:12px;">
             <div style="font-size:12px; color:#1C1C1C; line-height:1.6;" id="psn-insight">District 10 is the most competitive district in Travis County. With Travis County making up 38% of the district, Austin-area voters are significant but not dominant, making this a key swing seat to watch.</div>
@@ -593,13 +592,13 @@
 
 <script>
 const psnData = {
-  10: { title:'District 10', sub:'Travis County = 38% of district population', biden:59, trump:41, insight:'District 10 is the most competitive district in Travis County. With Travis County making up 38% of the district, Austin-area voters are significant but not dominant, making this a key swing seat to watch.' },
-  11: { title:'District 11', sub:'Travis County = 19% of district population', biden:65, trump:35, insight:'District 11 replaced District 35 in the 2025 redraw. Travis County\'s share dropped from 38% to 19%, cutting Austin-area influence in this seat nearly in half.' },
-  17: { title:'District 17', sub:'Travis County = less than 1% of district population', biden:56, trump:44, insight:'Travis County is a negligible part of District 17. This district is largely defined by communities well outside Austin.' },
-  21: { title:'District 21', sub:'Travis County = less than 1% of district population', biden:54, trump:46, insight:'Travis County barely registers in District 21. The small sliver that falls inside Travis County has minimal impact on overall district outcomes.' },
-  27: { title:'District 27', sub:'Travis County = 13% of district population', biden:69, trump:31, insight:'Travis County contributes 13% of District 27\'s population. The Travis County portion leans heavily Democratic, but the district extends well beyond Austin.' },
-  31: { title:'District 31', sub:'Travis County = less than 1% of district population', biden:39, trump:61, insight:'District 31 is the only district in this set where Trump led among Travis County voters. Even so, Travis County is less than 1% of the district, so its influence here is minimal.' },
-  37: { title:'District 37', sub:'Travis County = 98% of district population', biden:81, trump:19, insight:'District 37 is almost entirely Travis County. This is the most Democratic district in the set, but it is packed, meaning those votes have limited reach across other competitive seats.' }
+  10: { title:'District 10', sub:'Travis County = 38% of district population', biden:55, trump:45, insight:'District 10 is the most competitive district in Travis County. With Travis County making up 38% of the district, Austin-area voters are significant but not dominant, making this a key swing seat to watch.' },
+  11: { title:'District 11', sub:'Travis County = 19% of district population', biden:62, trump:38, insight:'District 11 replaced District 35 in the 2025 redraw. Travis County\'s share dropped from 38% to 19%, cutting Austin-area influence in this seat nearly in half.' },
+  17: { title:'District 17', sub:'Travis County = less than 1% of district population', biden:52, trump:48, insight:'Travis County is a negligible part of District 17. This district is largely defined by communities well outside Austin.' },
+  21: { title:'District 21', sub:'Travis County = less than 1% of district population', biden:51, trump:49, insight:'Travis County barely registers in District 21. The small sliver that falls inside Travis County has minimal impact on overall district outcomes.' },
+  27: { title:'District 27', sub:'Travis County = 13% of district population', biden:68, trump:32, insight:'Travis County contributes 13% of District 27\'s population. The Travis County portion leans heavily Democratic, but the district extends well beyond Austin.' },
+  31: { title:'District 31', sub:'Travis County = less than 1% of district population', biden:38, trump:62, insight:'District 31 is the only district in this set where Republicans led among Travis County voters in 2020 U.S. House. Even so, Travis County is less than 1% of the district, so its influence here is minimal.' },
+  37: { title:'District 37', sub:'Travis County = 98% of district population', biden:79, trump:21, insight:'District 37 is almost entirely Travis County. This is the most Democratic district in the set, but it is packed, meaning those votes have limited reach across other competitive seats.' }
 };
 function psn(d) {
   document.querySelectorAll('#dlist button').forEach(b => {
