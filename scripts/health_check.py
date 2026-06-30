@@ -65,6 +65,12 @@ TURNOUT_IMPLAUSIBLE = 1.0       # votes > population is impossible
 CENSUS_TOLERANCE = 0.10         # +/-10% vs official census before flagging
 NEAR_UNCONTESTED_SHARE = 5.0    # percent
 SHIFT_CLIP = 12.0               # percentage points 2016->2024
+LEAKAGE_PCT_TOLERANCE = 0.05    # percent of original votes. A diff above this
+                                # in any year flags vote_leakage. Real data
+                                # shows rounding accumulates to at most ~0.003%
+                                # even in large counties (Collin 2020: 13 votes
+                                # / 475k = 0.0027%); a real dropped precinct is
+                                # 0.1%+. 0.05% sits well clear of both.
 
 
 def discover_counties(data_dir):
@@ -89,6 +95,36 @@ def load_reference(reference_path):
         slug = str(row["county_name"]).strip().lower().replace(" ", "_")
         ref[slug] = (int(row["population_2020"]), row["county_name"])
     return ref
+
+
+def check_leakage(data_dir, slug):
+    """Read the saved {slug}_leakage.csv (written by the notebook's Step 7b)
+    and return (worst_diff_votes, worst_diff_pct, n_years).
+
+    The file has one row per cycle: year, original_votes, interpolated_votes,
+    diff. A near-zero diff every year means votes were conserved through
+    interpolation; a large diff in any year means precincts were dropped.
+    The percentage (diff / original_votes) is what we flag on, since a fixed
+    vote count means different things in a 10k county vs a 2M county.
+
+    Returns (None, None, 0) if the file doesn't exist (county processed
+    before leakage-saving was added) so the report can show 'not_saved'
+    rather than a misleading pass.
+    """
+    path = os.path.join(data_dir, f"{slug}_leakage.csv")
+    if not os.path.exists(path):
+        return None, None, 0
+    try:
+        df = pd.read_csv(path)
+    except Exception:
+        return None, None, 0
+    if df.empty or "diff" not in df.columns or "original_votes" not in df.columns:
+        return None, None, 0
+    worst_votes = float(df["diff"].abs().max())
+    # percentage diff per year, guarding against divide-by-zero
+    pct = (df["diff"].abs() / df["original_votes"].replace(0, pd.NA) * 100.0)
+    worst_pct = float(pct.max()) if pct.notna().any() else 0.0
+    return worst_votes, worst_pct, len(df)
 
 
 def check_weights(data_dir, slug):
@@ -203,12 +239,20 @@ def check_time_series(data_dir, slug):
 def evaluate_county(data_dir, slug, reference, tolerance):
     w_sum_ok, w2018_rows, pipeline_pop, zero_pop = check_weights(data_dir, slug)
     ts = check_time_series(data_dir, slug)
+    worst_leak_votes, worst_leak_pct, leak_years = check_leakage(data_dir, slug)
+
+    # display the worst leakage as "Nvotes (P%)" or "not_saved"
+    if worst_leak_votes is None:
+        leak_display = "not_saved"
+    else:
+        leak_display = f"{worst_leak_votes:.0f} ({worst_leak_pct:.3f}%)"
 
     row = {
         "county": slug,
         "w_sum_ok": w_sum_ok,
         "w2018_rows": w2018_rows,
         "zero_pop_prec": zero_pop,
+        "leakage": leak_display,
         "pipeline_pop": int(pipeline_pop) if pipeline_pop else None,
         "census_pop": None,
         "pop_pct_diff": None,
@@ -225,6 +269,11 @@ def evaluate_county(data_dir, slug, reference, tolerance):
 
     if not w_sum_ok:
         flags.append("weights_sum")
+
+    # leakage: flag only if the file exists AND the worst-year diff exceeds
+    # the percentage tolerance (a real dropped-precinct leak, not rounding)
+    if worst_leak_pct is not None and worst_leak_pct > LEAKAGE_PCT_TOLERANCE:
+        flags.append("vote_leakage")
 
     # census comparison
     census_pop = None
@@ -290,6 +339,7 @@ def print_report(rows):
     cols = [
         ("county", 14, "s"),
         ("status", 7, "s"),
+        ("leakage", 16, "s"),
         ("turnout", 8, "s"),
         ("pop_pct_diff", 13, "s"),
         ("w2018_rows", 11, "s"),

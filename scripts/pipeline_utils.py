@@ -322,4 +322,42 @@ def interpolate_votes_to_districts(results, weights, year):
     diff = abs(original_total - interpolated_total)
     print(f"{year}: original={original_total:,.0f}, interpolated={interpolated_total:,.0f}, diff={diff:.2f}")
 
+    result.attrs['leakage'] = {
+        'original': original_total,
+        'interpolated': interpolated_total,
+        'diff': diff,
+    }
     return result
+
+def save_leakage_report(county_slug, interp_by_year, output_dir='../data/processed'):
+    """
+    Save the per-cycle vote-leakage check to disk as {slug}_leakage.csv.
+
+    Reads the leakage stats that interpolate_votes_to_districts() attaches to
+    each interpolated DataFrame via .attrs['leakage'], so call after
+    interpolation. Near-zero diff each year means votes were conserved; a
+    large diff means precincts in the results didn't match the weights table.
+    """
+    import os
+    rows = []
+    for yr in sorted(interp_by_year):
+        interp = interp_by_year[yr]
+        if 'leakage' not in interp.attrs:
+            raise KeyError(
+                f"{yr} interpolated frame has no .attrs['leakage'] -- "
+                "restart the kernel and re-run so the patched "
+                "interpolate_votes_to_districts() is loaded."
+            )
+        s = interp.attrs['leakage']
+        rows.append({
+            'year': yr,
+            'original_votes': round(s['original'], 2),
+            'interpolated_votes': round(s['interpolated'], 2),
+            'diff': round(s['diff'], 2),
+        })
+    df = pd.DataFrame(rows)
+    path = os.path.join(output_dir, f'{county_slug}_leakage.csv')
+    df.to_csv(path, index=False)
+    print(f"Saved {county_slug}_leakage.csv")
+    print(df.to_string(index=False))
+    return df
