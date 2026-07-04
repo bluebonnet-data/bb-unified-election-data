@@ -59,26 +59,27 @@ def classify(res):
     if res['status'] == 'error':
         return 'error', f"{res['stage']}: {res['error']}"
 
-    # ran to completion -- assess leakage as % of original per year
-    worst_pct = 0.0
-    worst_year = None
-    for yr, diff in res['leakage'].items():
-        # we only stored diff; recompute pct needs original, which we don't
-        # keep here -- so treat any diff > a few votes as worth noting and
-        # let health_check.py do the precise % check against saved files.
-        # For triage we flag on absolute diff as a coarse first pass.
-        if diff > worst_pct:
-            worst_pct = diff
-            worst_year = yr
-
     invalid = sum(res['weight_invalid'].values())
     missing = res.get('missing_years', [])
     miss_note = f"; missing {len(missing)} yr(s): {missing}" if missing else ""
 
-    if worst_pct >= 50:  # coarse: tens of votes+ is worth a look at this stage
-        return 'review', f"leakage {worst_pct:.0f} votes in {worst_year}{miss_note}"
-    if invalid > 0:
-        return 'review', f"{invalid} precinct-years with weights != 1.0{miss_note}"
+    # run_county now computes the precise worst leakage % and a trustworthy
+    # verdict (leakage under tolerance AND no real weight breakage). Use those
+    # directly rather than re-deriving from raw diffs.
+    worst_pct = res.get('worst_leak_pct', 0.0)
+    trustworthy = res.get('trustworthy', True)
+
+    # find the worst year for the note
+    worst_year, worst_votes = None, 0
+    for yr, diff in res['leakage'].items():
+        if diff > worst_votes:
+            worst_votes, worst_year = diff, yr
+
+    if not trustworthy:
+        if invalid > 0:
+            return 'review', f"{invalid} precinct-years with weights != 1.0{miss_note}"
+        return 'review', (f"leakage {worst_votes:.0f} votes "
+                          f"({worst_pct:.3f}%) in {worst_year}{miss_note}")
     if missing:
         return 'partial', f"clean on {5-len(missing)} cycles{miss_note}"
     return 'clean', ''

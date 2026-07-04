@@ -485,13 +485,9 @@ def run_county(county_fips, county_name, data_dir='../data', save=True):
             result['weight_invalid'][yr] = int((ws.round(6) != 1.0).sum())
             result['zero_pop'] = result.get('zero_pop', 0) + len(zero_pop_ids)
 
-        # -- STEP 5: save weights (optional) -------------------------------
-        if save:
-            result['stage'] = 'save_weights'
-            for yr in [2016, 2018, 2020, 2022, 2024]:
-                weights[yr].to_csv(
-                    _f(processed, f'{slug}_population_weights_{yr}.csv'), index=False
-                )
+        # -- STEP 5: weights built; saving deferred until leakage verdict --
+        # (We only write files for counties that come back clean/partial, so
+        #  all saving happens at the end once leakage is known.)
 
         # -- STEP 6: election results per cycle ----------------------------
         result['stage'] = 'load_results'
@@ -544,10 +540,6 @@ def run_county(county_fips, county_name, data_dir='../data', save=True):
             weights[2018] = patch_missing_precincts(
                 results[2018], weights[2018], precincts[2020], districts, blocks, '2018'
             )
-            if save:
-                weights[2018].to_csv(
-                    _f(processed, f'{slug}_population_weights_2018.csv'), index=False
-                )
 
         # -- STEP 7: interpolate (only years we have results for) ----------
         result['stage'] = 'interpolate'
@@ -557,13 +549,8 @@ def run_county(county_fips, county_name, data_dir='../data', save=True):
             interp[yr] = iv
             result['leakage'][yr] = round(float(iv.attrs['leakage']['diff']), 2)
 
-        # -- STEP 7b: save leakage report ----------------------------------
-        if save:
-            result['stage'] = 'save_leakage'
-            save_leakage_report(slug, interp, output_dir=processed)
-
-        # -- STEP 8: combine + save time series ----------------------------
-        result['stage'] = 'save_time_series'
+        # -- STEP 8: combine time series (in memory) -----------------------
+        result['stage'] = 'combine_time_series'
         time_series = pd.concat([interp[y] for y in active_years],
                                 ignore_index=True)
         time_series = time_series[['year', 'new_district_id', 'candidate',
@@ -571,9 +558,36 @@ def run_county(county_fips, county_name, data_dir='../data', save=True):
         time_series['party'] = time_series['party'].str.upper()
         time_series['party'] = time_series['party'].replace(
             {'DEMOCRATIC': 'DEMOCRAT', 'GREEN': 'OTHER'})
-        if save:
+
+        # -- Verdict: is this county trustworthy? --------------------------
+        # Save to data/processed/ ONLY if the county is clean or partial:
+        #   * no genuine weight breakage, and
+        #   * leakage under LEAKAGE_PCT_TOLERANCE in every active year.
+        # Review/error counties run fully (so we get their diagnostics) but
+        # write nothing, keeping data/processed/ free of untrusted output.
+        LEAKAGE_PCT_TOLERANCE = 0.05  # match health_check.py
+        worst_pct = 0.0
+        for yr in active_years:
+            orig = interp[yr].attrs['leakage']['original']
+            diff = interp[yr].attrs['leakage']['diff']
+            if orig > 0:
+                worst_pct = max(worst_pct, 100.0 * diff / orig)
+        weight_broken = sum(result['weight_invalid'].values()) > 0
+        trustworthy = (worst_pct <= LEAKAGE_PCT_TOLERANCE) and not weight_broken
+        result['worst_leak_pct'] = round(worst_pct, 4)
+        result['trustworthy'] = trustworthy
+
+        if save and trustworthy:
+            result['stage'] = 'save'
+            for yr in active_years:
+                weights[yr].to_csv(
+                    _f(processed, f'{slug}_population_weights_{yr}.csv'), index=False)
+            save_leakage_report(slug, interp, output_dir=processed)
             time_series.to_csv(
                 _f(processed, f'{slug}_house_time_series.csv'), index=False)
+            result['saved'] = True
+        else:
+            result['saved'] = False
 
         result['stage'] = None
         return result

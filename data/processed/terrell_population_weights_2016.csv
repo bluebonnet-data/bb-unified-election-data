@@ -1,0 +1,5 @@
+old_precinct_id,new_district_id,fragment_population,precinct_total,weight
+4430001,23,438,438,1.0
+4430002,23,365,365,1.0
+4430003,23,417,417,1.0
+4430004,23,460,460,1.0
