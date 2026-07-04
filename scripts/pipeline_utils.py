@@ -361,3 +361,224 @@ def save_leakage_report(county_slug, interp_by_year, output_dir='../data/process
     print(f"Saved {county_slug}_leakage.csv")
     print(df.to_string(index=False))
     return df
+
+def run_county(county_fips, county_name, data_dir='../data', save=True):
+    """
+    Run the full time-series pipeline (notebook Steps 1-8) for a single county
+    and return a result dict. Designed for batch execution: any failure is
+    caught and returned rather than raised, so one bad county doesn't halt a
+    run over all 254.
+
+    This is a faithful extraction of the per-county notebook orchestration.
+    It calls the same building-block functions the notebooks use
+    (build_weights_table, load_medsl, patch_missing_precincts,
+    interpolate_votes_to_districts, save_leakage_report), in the same order.
+
+    Parameters
+    ----------
+    county_fips : int
+        County FIPS code (e.g. 453 for Travis).
+    county_name : str
+        Uppercase county name as it appears in 2018+ MEDSL files (e.g. 'TRAVIS').
+        The 2016 title-case variant is derived from this.
+    data_dir : str
+        Path to the data/ directory (default '../data', matching notebook cwd).
+    save : bool
+        If True, write the processed outputs (weights, time series, leakage)
+        to data/processed/. If False, run everything but write nothing --
+        useful for a dry triage pass.
+
+    Returns
+    -------
+    dict with keys:
+        county_fips, county_name, slug
+        status        : 'ok' | 'error'
+        stage         : which step was running if it errored (else None)
+        error         : exception message if status == 'error' (else None)
+        leakage       : {year: diff} per cycle if it got that far (else {})
+        n_precincts   : {year: unique-precinct count from results} (diagnostic)
+        weight_invalid: {year: count of precincts not summing to 1.0}
+    """
+    import os
+    import geopandas as gpd
+    import pandas as pd
+
+    slug = county_name.lower().replace(' ', '_')
+    result = {
+        'county_fips': county_fips,
+        'county_name': county_name,
+        'slug': slug,
+        'status': 'ok',
+        'stage': None,
+        'error': None,
+        'leakage': {},
+        'n_precincts': {},
+        'weight_invalid': {},
+        'zero_pop': 0,
+        'missing_years': [],
+    }
+
+    raw = os.path.join(data_dir, 'raw')
+    processed = os.path.join(data_dir, 'processed')
+
+    def _f(*parts):
+        return os.path.join(*parts)
+
+    try:
+        # -- STEP 1: precinct boundaries per cycle -------------------------
+        result['stage'] = 'load_boundaries'
+        boundary_specs = {
+            2016: ('zip://' + _f(raw, 'election_results', 'tx_2016.zip') + '!tx_2016.shp', county_fips),
+            2018: ('zip://' + _f(raw, 'election_results', 'tx_2018.zip') + '!tx_2018.shp', county_fips),
+            2020: ('zip://' + _f(raw, 'boundaries', 'precincts20g_2020.zip') + '!Precincts20G_2020.shp', county_fips),
+            2022: ('zip://' + _f(raw, 'boundaries', 'precincts22g.zip') + '!Precincts22G.shp', county_fips),
+            2024: ('zip://' + _f(raw, 'boundaries', 'precincts24g.zip') + '!Precincts24G.shp', county_fips),
+        }
+        precincts = {}
+        for yr, (path, fips) in boundary_specs.items():
+            gdf = gpd.read_file(path)
+            gdf = gdf[gdf['CNTY'] == fips].copy()
+            if len(gdf) == 0:
+                raise ValueError(
+                    f"{yr} boundary filter returned 0 precincts for CNTY={fips!r}. "
+                    "County code type/value mismatch in this boundary file."
+                )
+            precincts[yr] = gdf
+
+        # -- STEP 2: 2026 districts ----------------------------------------
+        result['stage'] = 'load_districts'
+        districts = gpd.read_file(
+            'zip://' + _f(raw, 'boundaries', 'PLANC2333.zip') + '!PLANC2333/PLANC2333.shp'
+        )
+
+        # -- STEP 3: census blocks + population ----------------------------
+        result['stage'] = 'load_blocks'
+        blocks = gpd.read_file('zip://' + _f(raw, 'census', 'Blocks.zip') + '!Blocks.shp')
+        blocks = blocks[blocks['CNTY'] == str(county_fips).zfill(3)].copy()
+        if len(blocks) == 0:
+            raise ValueError(
+                f"census block filter returned 0 blocks for CNTY={str(county_fips).zfill(3)!r}."
+            )
+        pop = pd.read_csv(_f(raw, 'census', 'Blocks_Pop.txt'), dtype={'SCTBKEY': str})
+        pop = pop[pop['SCTBKEY'].str.startswith('48' + str(county_fips).zfill(3))].copy()
+        blocks = blocks.merge(pop[['SCTBKEY', 'total']], on='SCTBKEY', how='left')
+        blocks['total'] = blocks['total'].fillna(0)
+
+        # -- STEP 4: weights tables per cycle ------------------------------
+        result['stage'] = 'build_weights'
+        weights = {}
+        for yr in [2016, 2018, 2020, 2022, 2024]:
+            w = build_weights_table(precincts[yr], districts, blocks, str(yr))
+            weights[yr] = w
+            # Count only GENUINELY broken precincts. A precinct with
+            # precinct_total == 0 produces weight = 0/0 = NaN and sums to 0,
+            # not 1.0 -- but that's a benign empty precinct, not breakage
+            # (matches health_check.py's zero-pop handling). Exclude those,
+            # then check whether any real precinct's weights miss 1.0.
+            if 'precinct_total' in w.columns:
+                zero_pop_ids = set(
+                    w.loc[w['precinct_total'] == 0, 'old_precinct_id'].unique())
+            else:
+                zero_pop_ids = set()
+            real = w[~w['old_precinct_id'].isin(zero_pop_ids)]
+            ws = real.groupby('old_precinct_id')['weight'].sum()
+            result['weight_invalid'][yr] = int((ws.round(6) != 1.0).sum())
+            result['zero_pop'] = result.get('zero_pop', 0) + len(zero_pop_ids)
+
+        # -- STEP 5: save weights (optional) -------------------------------
+        if save:
+            result['stage'] = 'save_weights'
+            for yr in [2016, 2018, 2020, 2022, 2024]:
+                weights[yr].to_csv(
+                    _f(processed, f'{slug}_population_weights_{yr}.csv'), index=False
+                )
+
+        # -- STEP 6: election results per cycle ----------------------------
+        result['stage'] = 'load_results'
+        # Most counties' 2016 MEDSL name is title-case + ' County', but some
+        # have irregular internal capitalization that .title() gets wrong
+        # (e.g. MCLENNAN -> 'Mclennan' but MEDSL has 'McLennan'). Override those.
+        NAME_2016_OVERRIDES = {
+            'DEWITT': 'DeWitt County',
+            'MCCULLOCH': 'McCulloch County',
+            'MCLENNAN': 'McLennan County',
+            'MCMULLEN': 'McMullen County',
+        }
+        name_2016 = NAME_2016_OVERRIDES.get(
+            county_name.upper(), county_name.title() + ' County')
+        result_specs = {
+            2016: (_f(raw, 'election_results', 'HOUSE_precinct_general_2016.tab'), name_2016),
+            2018: (_f(raw, 'election_results', 'HOUSE_precinct_general_2018.csv'), county_name),
+            2020: (_f(raw, 'election_results', 'HOUSE_precinct_general_2020.csv'), county_name),
+            2022: (_f(raw, 'election_results', 'HOUSE_precinct_general_2022.csv'), county_name),
+            2024: (_f(raw, 'election_results', 'HOUSE_precinct_general_2024.csv'), county_name),
+        }
+        results = {}
+        missing_years = []
+        for yr, (path, name) in result_specs.items():
+            r = load_medsl(path, ',', name, yr, county_fips)
+            if len(r) == 0:
+                # Genuinely no results for this year. For 2016 this is a known
+                # MEDSL coverage gap for some counties (e.g. the uncontested
+                # TX-08 counties). Rather than failing the whole county, skip
+                # the year and process the cycles that do exist. Recorded so
+                # it's visible, not silent.
+                missing_years.append(yr)
+                continue
+            results[yr] = r
+            result['n_precincts'][yr] = int(r['PCTKEY'].nunique())
+
+        result['missing_years'] = missing_years
+        if not results:
+            raise ValueError(
+                f"no results found for any year (county_name={county_name!r}). "
+                "Likely a name-spelling mismatch across all files."
+            )
+
+        # years we actually have data for, in order
+        active_years = [y for y in [2016, 2018, 2020, 2022, 2024] if y in results]
+
+        # -- STEP 6b: patch 2018 (no-op unless VEST gap; skip if no 2018) --
+        result['stage'] = 'patch_2018'
+        if 2018 in results:
+            weights[2018] = patch_missing_precincts(
+                results[2018], weights[2018], precincts[2020], districts, blocks, '2018'
+            )
+            if save:
+                weights[2018].to_csv(
+                    _f(processed, f'{slug}_population_weights_2018.csv'), index=False
+                )
+
+        # -- STEP 7: interpolate (only years we have results for) ----------
+        result['stage'] = 'interpolate'
+        interp = {}
+        for yr in active_years:
+            iv = interpolate_votes_to_districts(results[yr], weights[yr], yr)
+            interp[yr] = iv
+            result['leakage'][yr] = round(float(iv.attrs['leakage']['diff']), 2)
+
+        # -- STEP 7b: save leakage report ----------------------------------
+        if save:
+            result['stage'] = 'save_leakage'
+            save_leakage_report(slug, interp, output_dir=processed)
+
+        # -- STEP 8: combine + save time series ----------------------------
+        result['stage'] = 'save_time_series'
+        time_series = pd.concat([interp[y] for y in active_years],
+                                ignore_index=True)
+        time_series = time_series[['year', 'new_district_id', 'candidate',
+                                   'party', 'estimated_votes']]
+        time_series['party'] = time_series['party'].str.upper()
+        time_series['party'] = time_series['party'].replace(
+            {'DEMOCRATIC': 'DEMOCRAT', 'GREEN': 'OTHER'})
+        if save:
+            time_series.to_csv(
+                _f(processed, f'{slug}_house_time_series.csv'), index=False)
+
+        result['stage'] = None
+        return result
+
+    except Exception as e:
+        result['status'] = 'error'
+        result['error'] = f"{type(e).__name__}: {e}"
+        return result
