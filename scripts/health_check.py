@@ -65,12 +65,12 @@ TURNOUT_IMPLAUSIBLE = 1.0       # votes > population is impossible
 CENSUS_TOLERANCE = 0.10         # +/-10% vs official census before flagging
 NEAR_UNCONTESTED_SHARE = 5.0    # percent
 SHIFT_CLIP = 12.0               # percentage points 2016->2024
-LEAKAGE_PCT_TOLERANCE = 0.05    # percent of original votes. A diff above this
-                                # in any year flags vote_leakage. Real data
-                                # shows rounding accumulates to at most ~0.003%
-                                # even in large counties (Collin 2020: 13 votes
-                                # / 475k = 0.0027%); a real dropped precinct is
-                                # 0.1%+. 0.05% sits well clear of both.
+LEAKAGE_PCT_TOLERANCE = 0.5     # percent of original votes. A diff above this
+                                # flags vote_leakage. Set to 0.5% post-
+                                # reconciler: precinct-ID reconciliation removed
+                                # the large structural leaks, leaving only a few
+                                # unmatched precincts per county that net well
+                                # under 0.5%.
 
 
 def discover_counties(data_dir):

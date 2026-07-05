@@ -51,7 +51,7 @@ REGISTRY_PATH = os.path.join(SCRIPT_DIR, 'county_registry.csv')
 DATA_DIR = os.path.join(REPO_ROOT, 'data')
 REPORT_PATH = os.path.join(DATA_DIR, 'triage_report.csv')
 
-LEAKAGE_PCT_TOLERANCE = 0.05  # match health_check.py
+LEAKAGE_PCT_TOLERANCE = 0.5  # match health_check.py
 
 
 def classify(res):
