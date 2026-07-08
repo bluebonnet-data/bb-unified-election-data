@@ -28,7 +28,7 @@ Design notes:
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 import numpy as np
-
+import pandas as pd
 
 # Brand colors (kept consistent with the original notebook cells)
 DEM_COLOR = '#185FA5'
@@ -71,22 +71,44 @@ def build_two_party_pivot(time_series):
         if col not in pivot.columns:
             pivot[col] = np.nan
 
-    # Uncontested = one party has no votes at all that cycle/district
-    pivot['uncontested'] = pivot['DEMOCRAT'].isna() | pivot['REPUBLICAN'].isna()
+    # Uncontested = one party has essentially no votes that cycle/district.
+    # NaN (party entirely absent) OR a negligible share (interpolation can leave
+    # a few stray votes bled in from an adjacent district, e.g. Tarrant D6 2022
+    # had 92 D votes out of ~48k — that's an uncontested race, not a 0.2% race).
+    UNCONTESTED_SHARE = 1.0  # percent of the two-party total
+    _total = pivot['DEMOCRAT'].fillna(0) + pivot['REPUBLICAN'].fillna(0)
+    _dem_pct = pivot['DEMOCRAT'].fillna(0) / _total.replace(0, np.nan) * 100
+    _rep_pct = pivot['REPUBLICAN'].fillna(0) / _total.replace(0, np.nan) * 100
+    pivot['uncontested'] = (
+    pivot['DEMOCRAT'].isna() | pivot['REPUBLICAN'].isna()
+    | (_dem_pct < UNCONTESTED_SHARE) | (_rep_pct < UNCONTESTED_SHARE)
+    )
+        
     pivot['total'] = pivot['DEMOCRAT'] + pivot['REPUBLICAN']
     pivot['dem_share'] = pivot['DEMOCRAT'] / pivot['total'] * 100
     pivot['rep_share'] = pivot['REPUBLICAN'] / pivot['total'] * 100
 
-    # Who won an uncontested race: the one party that actually has votes.
-    # NaN for contested rows. Derived purely from which party column is populated,
-    # so no extra data is needed — the winner is already implied by the pivot.
-    # (x == x is False only when x is NaN, so it's a NaN check without importing isna.)
-    pivot['uncontested_winner'] = pivot.apply(
-        lambda r: 'DEMOCRAT' if (r['uncontested'] and r['DEMOCRAT'] == r['DEMOCRAT'])
-        else ('REPUBLICAN' if (r['uncontested'] and r['REPUBLICAN'] == r['REPUBLICAN'])
-              else np.nan),
-        axis=1,
-    )
+    # For uncontested rows the two-party share is meaningless (one party had
+    # essentially no votes), so blank it out — the line plots skip NaN, leaving
+    # a clean gap at that year instead of a misleading cliff. The dotted marker
+    # and 'uncontested' label still show what happened there.
+    pivot.loc[pivot['uncontested'], ['dem_share', 'rep_share']] = np.nan
+
+    # Who won an uncontested race: the party with essentially all the votes.
+    # Works for both the NaN case (party absent) and the near-zero case (tiny
+    # bled-in votes), since we take the larger of the two totals rather than
+    # checking which column is non-NaN.
+    def _uncontested_winner(r):
+        if not r['uncontested']:
+            return np.nan
+        dem = 0 if pd.isna(r['DEMOCRAT']) else r['DEMOCRAT']
+        rep = 0 if pd.isna(r['REPUBLICAN']) else r['REPUBLICAN']
+        if dem == 0 and rep == 0:
+            return np.nan
+        return 'DEMOCRAT' if dem >= rep else 'REPUBLICAN'
+
+    pivot['uncontested_winner'] = pivot.apply(_uncontested_winner, axis=1)
+
     return pivot
 
 
