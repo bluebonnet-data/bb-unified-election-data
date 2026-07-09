@@ -29,6 +29,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 import numpy as np
 import pandas as pd
+import geopandas as gpd
 
 # Brand colors (kept consistent with the original notebook cells)
 DEM_COLOR = '#185FA5'
@@ -259,9 +260,34 @@ def plot_vote_share_map(pivot, districts_clipped, county_name, county_slug,
                     bbox=dict(boxstyle='round,pad=0.35', facecolor='white',
                               edgecolor='none', alpha=0.85))
         else:
-            districts_year.plot(column='dem_share', ax=ax, cmap='RdBu',
-                                vmin=30, vmax=70, legend=False,
-                                edgecolor='white', linewidth=0.5)
+            # Mixed year: some districts contested, some uncontested. Plot the
+            # contested ones with the colormap, then overlay the uncontested
+            # ones hatched (colored by who won unopposed) so they read as
+            # 'uncontested' rather than rendering blank/white.
+            contested = districts_year[districts_year['dem_share'].notna()]
+            uncontested = districts_year[districts_year['dem_share'].isna()]
+
+            if len(contested):
+                contested.plot(column='dem_share', ax=ax, cmap='RdBu',
+                               vmin=30, vmax=70, legend=False,
+                               edgecolor='white', linewidth=0.5)
+
+            if len(uncontested):
+                winners = pivot[(pivot['year'] == year) & pivot['uncontested']][
+                    ['new_district_id', 'uncontested_winner']]
+                winners = winners.rename(columns={'new_district_id': 'District'})
+                unc = uncontested.merge(winners, on='District', how='left')
+                for _, row in unc.iterrows():
+                    w = row.get('uncontested_winner')
+                    if w == 'DEMOCRAT':
+                        fill = '#b3c6dd'
+                    elif w == 'REPUBLICAN':
+                        fill = '#e0b3b3'
+                    else:
+                        fill = '#dddddd'
+                    gpd.GeoSeries([row['geometry']]).plot(
+                        ax=ax, color=fill, edgecolor='white',
+                        linewidth=0.5, hatch='///')
 
         ax.set_title(f'{year}', fontweight='bold', fontsize=18)
         ax.set_axis_off()
