@@ -4,72 +4,51 @@ When states redraw their political maps, directly comparing election results acr
 
 This project aims to translate past election results onto current maps so campaigns can see how any district or neighborhood has genuinely trended over time. We are starting with Texas, where a 2025 mid-decade redraw created an urgent need for exactly this kind of historical context.
 
-📄 **Project overview:** https://bluebonnet-data.github.io/bb-unified-election-data/onepager.html
-
-## Why this matters
-
-By standardizing historical votes onto today's exact district and precinct boundaries, this pipeline gives campaigns three vital advantages:
-
-- Unmasking map changes: Quantifies exactly who a new map helps or hurts before a single new ballot is cast.
-- Neighborhood-level trends: Bypasses years of messy, shifting precinct lines to reveal clear, multi-cycle political trajectories for stable geographic communities.
-- Resource precision: Enables campaigns to make decisions based on current geographic boundaries, not outdated maps.
-
-## Who this is for
-
-- Congressional Campaigns: See true multi-cycle performance within newly redrawn district lines.
-- Down-Ballot Campaigns: Pinpoint base neighborhoods and direct resources using current geography, not outdated maps.
-- Researchers and Engaged Citizens: Pull up any district and see its full electoral history on today's map.
-
-## Two things we are building
-
-### District-level analysis [In Progress]
-Simulates past election results using current congressional boundaries to establish a true historical baseline.
-
-### Neighborhood-level analysis [Planned]
-Tracks localized political trajectories across multiple cycles, independent of shifting precinct lines.
+📄 **Project explainer:** https://bluebonnet-data.github.io/bb-unified-election-data/onepager.html
+📊 **Where we stand:** https://bluebonnet-data.github.io/bb-unified-election-data/where_we_stand.html
 
 ## Current status
 
-### Phase 1 pilot - Travis County, TX (complete)
+**236 of 254 Texas counties** have U.S. House results (2016 to 2024) translated onto the 2026 congressional map. Every county passes a vote leakage check, and all of it is committed to `data/processed/`.
 
-| Issue | Task | Status |
-|-------|------|--------|
-| #1 | Repo setup | Done |
-| #4 | Boundary shapefiles | Done |
-| #5 | Census block population data | Done |
-| #6 | Spatial intersection engine | Done |
-| #7 | Vote interpolation 2020 Presidential | Done |
-| #8 | Methodology documentation | Done |
+A batch runner takes any county through the full pipeline in one command. A precinct ID reconciler handles the ID mismatches between election results and boundary files that were silently dropping votes, which took the review pile from 47 counties down to 8.
 
-2020 Presidential results successfully mapped onto 7 new congressional districts touching Travis County with zero vote leakage. District 35 (38% Travis County) was eliminated in the 2025 redraw. Its population was dispersed across Districts 37, 10, 11, and 27. See notebooks/04_vote_interpolation.ipynb.
+[Where we stand](https://bluebonnet-data.github.io/bb-unified-election-data/where_we_stand.html) has the full picture, including the open question about whether district level is granular enough.
 
-### Next steps
+## What is next
 
-- Add 2016, 2018, 2022, 2024 election cycles to build a time series (Issue #10)
-- Build precinct-level time series on consistent boundaries (Issue #9)
-- Scale district-level engine to a second Texas county (Issue #11)
-- Design statewide scaling architecture for all 254 counties (Issue #12)
-- Build the Unified Election Data Project dashboard
-
-## Repo structure
-
-- data/raw/boundaries: Precinct and district shapefiles (map boundary files)
-- data/raw/census: Census block population data
-- data/raw/election_results: Raw election result files
-- data/processed: Analysis-ready outputs
-- docs: Methodology, scoping, reference reading
-- notebooks: Jupyter notebooks for exploration
-- scripts: Standalone Python scripts
-- tests: Validation and unit tests
+* **[#13] A front end** to explore the dataset. Front end and data viz, a creative eye. Ideas welcomed.
+* **[#14] The last 8 counties** with precinct IDs the reconciler could not match.
+* **[#9] Precinct level**, the neighborhood view. The method is proven; the question is scale.
 
 ## Getting started
 
-1. Clone the repo
-2. Move into the folder
-3. Run: pip install -r requirements.txt
+```
+pip install -r requirements.txt
+```
 
-See docs/ for methodology and notebooks/ for step-by-step walkthroughs.
+Process a single county:
 
-## How to contribute
+```
+python scripts/run_all_counties.py --county TRAVIS
+```
 
-Read CONTRIBUTING.md before starting. All open tasks are in the Issues tab.
+Generate figures for a county from its saved data:
+
+```
+python scripts/plot_county.py travis 453
+```
+
+## Repo structure
+
+| Path | Contents |
+|---|---|
+| `data/raw/` | Boundary shapefiles, census blocks, raw election results |
+| `data/processed/` | One time series and weights table per county |
+| `scripts/` | Pipeline (`pipeline_utils.py`), batch runner (`run_all_counties.py`), figures (`plot_county.py`), validation (`health_check.py`) |
+| `notebooks/` | Step by step walkthroughs |
+| `docs/` | Methodology, project pages, generated figures |
+
+## Contributing
+
+Async first, one to three hours a week. Python, GIS, front end, or docs all welcome. Read CONTRIBUTING.md, then pick something from the Issues tab.
