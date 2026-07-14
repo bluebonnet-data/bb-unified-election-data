@@ -29,6 +29,7 @@
     margin: 0 auto;
     padding: 0;
     line-height: 1.7;
+    font-size: 14px;
   }
 
   /* ---------- header ---------- */
@@ -77,7 +78,7 @@
   }
   h1 {
     font-family: 'DM Serif Display', serif;
-    font-size: 52px;
+    font-size: 42px;
     line-height: 1.1;
     font-weight: 400;
     margin-bottom: 20px;
@@ -85,7 +86,7 @@
     z-index: 1;
   }
   .header-sub {
-    font-size: 18px;
+    font-size: 16px;
     color: rgba(255,255,255,0.75);
     max-width: 620px;
     font-weight: 300;
@@ -100,7 +101,7 @@
     padding: 56px 56px 8px;
   }
   .eyebrow {
-    font-size: 13px;
+    font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -109,7 +110,7 @@
   }
   h2 {
     font-family: 'DM Serif Display', serif;
-    font-size: 38px;
+    font-size: 26px;
     line-height: 1.15;
     font-weight: 400;
     margin-bottom: 24px;
@@ -117,13 +118,13 @@
   }
   h3 {
     font-family: 'DM Sans', sans-serif;
-    font-size: 19px;
+    font-size: 15px;
     font-weight: 600;
     margin: 32px 0 10px;
     color: var(--navy);
   }
-  p { margin-bottom: 20px; font-size: 17px; }
-  p.lead { font-size: 19px; }
+  p { margin-bottom: 16px; font-size: 14px; }
+  p.lead { font-size: 16px; }
   strong { font-weight: 600; }
   code {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -154,14 +155,14 @@
   }
   .stat-num {
     font-family: 'DM Serif Display', serif;
-    font-size: 40px;
+    font-size: 32px;
     line-height: 1;
     color: var(--navy);
     margin-bottom: 8px;
   }
   .stat-num.accent { color: var(--mid-blue); }
   .stat-label {
-    font-size: 13px;
+    font-size: 11px;
     color: var(--muted);
     line-height: 1.4;
   }
@@ -176,7 +177,7 @@
   }
   .callout h2 {
     color: white;
-    font-size: 34px;
+    font-size: 24px;
     margin-bottom: 18px;
   }
   .callout p {
@@ -186,7 +187,7 @@
   .callout p:last-child { margin-bottom: 0; }
   .callout .pull {
     font-family: 'DM Serif Display', serif;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1.35;
     color: white;
     padding: 20px 0 20px 24px;
@@ -203,7 +204,7 @@
     margin-bottom: 16px;
   }
   .learn h3 { margin: 0 0 8px; }
-  .learn p { margin-bottom: 0; font-size: 16px; color: #3A3A3A; }
+  .learn p { margin-bottom: 0; font-size: 13px; color: #3A3A3A; }
 
   /* ---------- next / issues ---------- */
   .tracks {
@@ -221,7 +222,7 @@
     flex-direction: column;
   }
   .track-tag {
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -230,16 +231,16 @@
   }
   .track h3 {
     margin: 0 0 10px;
-    font-size: 18px;
+    font-size: 15px;
   }
   .track p {
-    font-size: 15px;
+    font-size: 13px;
     color: #3A3A3A;
     margin-bottom: 16px;
     flex-grow: 1;
   }
   .track .who {
-    font-size: 13px;
+    font-size: 11px;
     color: var(--muted);
     font-style: italic;
   }
@@ -257,13 +258,13 @@
   }
   .contribute h2 {
     color: white;
-    font-size: 30px;
+    font-size: 20px;
     margin-bottom: 8px;
   }
   .contribute p {
     color: rgba(255,255,255,0.7);
     margin: 0;
-    font-size: 16px;
+    font-size: 13px;
   }
   .btn {
     background: rgba(255,255,255,0.08);
@@ -273,7 +274,7 @@
     padding: 14px 26px;
     border-radius: 8px;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     white-space: nowrap;
     transition: background 0.15s;
   }
@@ -284,32 +285,31 @@
     .header { padding-top: 36px; padding-bottom: 32px; }
     section { padding-top: 40px; }
     .divider { margin-left: 24px; margin-right: 24px; margin-top: 36px; }
-    h1 { font-size: 34px; }
-    h2 { font-size: 27px; margin-bottom: 18px; }
-    h3 { font-size: 17px; margin: 24px 0 8px; }
-    p { font-size: 16px; margin-bottom: 16px; }
-    p.lead { font-size: 17px; }
+    h1 { font-size: 30px; }
+    h2 { font-size: 22px; margin-bottom: 16px; }
+    h3 { font-size: 14px; margin: 22px 0 8px; }
+    p { font-size: 13px; margin-bottom: 14px; }
+    p.lead { font-size: 14px; }
+    .header-sub { font-size: 14px; }
 
-    /* stat cards: compact 2x2 */
     .stats { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 24px; }
     .stat { padding: 14px 10px; border-radius: 10px; }
     .stat-num { font-size: 24px; margin-bottom: 4px; white-space: nowrap; }
-    .stat-label { font-size: 11px; line-height: 1.3; }
+    .stat-label { font-size: 10px; line-height: 1.3; }
 
-    /* learn + track cards: less bulky */
     .learn { padding: 18px 18px; margin-bottom: 10px; }
-    .learn p { font-size: 15px; }
+    .learn p { font-size: 13px; }
     .tracks { grid-template-columns: 1fr; gap: 10px; }
     .track { padding: 18px 18px; }
-    .track p { font-size: 15px; margin-bottom: 12px; }
+    .track p { font-size: 13px; margin-bottom: 12px; }
 
     .callout { padding: 26px 22px; }
-    .callout h2 { font-size: 25px; }
-    .callout p { font-size: 16px; }
-    .callout .pull { font-size: 19px; padding: 14px 0 14px 16px; margin: 16px 0; }
+    .callout h2 { font-size: 22px; }
+    .callout p { font-size: 13px; }
+    .callout .pull { font-size: 18px; padding: 14px 0 14px 16px; margin: 16px 0; }
 
     .contribute { flex-direction: column; align-items: flex-start; gap: 20px; padding-top: 32px; padding-bottom: 32px; }
-    .contribute h2 { font-size: 25px; }
+    .contribute h2 { font-size: 18px; }
   }
 
   @media (max-width: 400px) {
