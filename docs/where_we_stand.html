@@ -56,20 +56,11 @@
     gap: 14px;
     margin-bottom: 28px;
   }
-  .brand-mark {
-    width: 40px;
-    height: 40px;
-    background: white;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-  }
+
   .brand-name {
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 0.01em;
+    font-weight: 500;
+    font-size: 13px;
+    color: white;
   }
   .header-rule {
     height: 1px;
@@ -82,14 +73,16 @@
     line-height: 1.1;
     font-weight: 400;
     margin-bottom: 20px;
+    max-width: 600px;
     position: relative;
     z-index: 1;
   }
   .header-sub {
     font-size: 16px;
-    color: rgba(255,255,255,0.75);
-    max-width: 620px;
     font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.75);
+    max-width: 560px;
     position: relative;
     z-index: 1;
   }
@@ -155,14 +148,14 @@
   }
   .stat-num {
     font-family: 'DM Serif Display', serif;
-    font-size: 32px;
+    font-size: 42px;
     line-height: 1;
     color: var(--navy);
     margin-bottom: 8px;
   }
   .stat-num.accent { color: var(--mid-blue); }
   .stat-label {
-    font-size: 11px;
+    font-size: 13px;
     color: var(--muted);
     line-height: 1.4;
   }
@@ -249,7 +242,7 @@
   .contribute {
     background: var(--navy);
     color: white;
-    padding: 40px 56px;
+    padding: 28px 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -257,9 +250,11 @@
     margin-top: 56px;
   }
   .contribute h2 {
+    font-family: 'DM Serif Display', serif;
     color: white;
-    font-size: 20px;
-    margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 4px;
   }
   .contribute p {
     color: rgba(255,255,255,0.7);
@@ -267,14 +262,14 @@
     font-size: 13px;
   }
   .btn {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
     color: white;
     text-decoration: none;
-    padding: 14px 26px;
-    border-radius: 8px;
+    padding: 10px 20px;
+    border-radius: 6px;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 13px;
     white-space: nowrap;
     transition: background 0.15s;
   }
@@ -308,7 +303,7 @@
     .callout p { font-size: 13px; }
     .callout .pull { font-size: 18px; padding: 14px 0 14px 16px; margin: 16px 0; }
 
-    .contribute { flex-direction: column; align-items: flex-start; gap: 20px; padding-top: 32px; padding-bottom: 32px; }
+    .contribute { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px; }
     .contribute h2 { font-size: 18px; }
   }
 
@@ -322,11 +317,7 @@
 
 <div class="header">
   <div class="brand">
-    <div class="brand-mark">
-      <img src="https://avatars.githubusercontent.com/u/55336117?s=56&v=4"
-           alt="Bluebonnet Data logo"
-           style="width:28px;height:28px;border-radius:5px;">
-    </div>
+    <img src="https://avatars.githubusercontent.com/u/55336117?s=56&v=4" alt="Bluebonnet Data logo" style="width:28px;height:28px;border-radius:5px;">
     <div class="brand-name">Bluebonnet Data</div>
   </div>
   <div class="header-rule"></div>
@@ -344,10 +335,10 @@
   <p class="lead">
     <strong>236 of 254 Texas counties</strong> now have U.S. House results
     (2016 to 2024) translated onto the 2026 congressional map. All of it is
-    committed to the repo, and every county passes a vote leakage check.
+    committed to the repo, and every one cleared a vote leakage check.
   </p>
   <p>
-    When the pilot ended we had ten counties, done by hand. The work since has been
+    Early on, we had ten counties, done by hand. The work since has been
     about getting from ten to the whole state, and finding out what breaks along the way.
   </p>
 
@@ -379,16 +370,15 @@
 
   <h3>A batch runner</h3>
   <p>
-    One command now takes any county through the full pipeline: load its precincts,
+    A single command runs the full pipeline for any county: load its precincts,
     build the weights table against the 2026 districts, interpolate the votes, and
-    check the result. Run it across the registry and it does all 254, writing a
-    report on every one.
+    check the result. The same command scales to the whole state: point it at all
+    254 counties and it works through each one, flagging any that need a closer look.
   </p>
 
   <h3>A precinct ID reconciler</h3>
   <p>
-    This was the real unlock, and it is worth explaining, because it is where the
-    time went.
+    This was the real unlock, and it is worth explaining.
   </p>
   <p>
     Election results and precinct boundaries come from different sources, and they
@@ -411,9 +401,10 @@
 
   <h3>Leakage checking at scale</h3>
   <p>
-    Every county, every cycle, we compare votes reported against votes after
-    interpolation. Nothing gets saved to the dataset unless it passes. Counties that
-    fail still run, so we can see why, but they write nothing.
+    Every county, every cycle, we check for vote leakage: does the interpolated
+    total still match the votes we started with? Nothing gets saved unless a county
+    clears that check. Counties that fail still run, so we can see why, but they
+    write nothing.
   </p>
 </section>
 
@@ -421,21 +412,22 @@
 
 <section>
   <div class="eyebrow">What we learned</div>
-  <h2>Three things that surprised us</h2>
+  <h2>Three things we learned</h2>
 
   <div class="learn">
-    <h3>Precinct ID mismatches were the whole ballgame</h3>
+    <h3>The real problem was precinct IDs</h3>
     <p>
-      Not 254 unique problems, but a handful of patterns repeated across counties.
-      Once we could name them, we could fix them in one place.
+      It looked like it might be 254 separate problems. It turned out to be a
+      handful of patterns repeated across counties, so once we recognized a given
+      pattern, the reconciler could handle each county that shared it.
     </p>
   </div>
 
   <div class="learn">
-    <h3>Uncontested races need to be handled honestly</h3>
+    <h3>Handling uncontested races</h3>
     <p>
-      When one party fields no candidate, the two party vote share is not zero. It is
-      undefined. We mark those cycles rather than plotting a misleading number.
+      When only one party fields a candidate, there is no two-party split to measure.
+      Showing a number anyway would be misleading, so we mark those cycles instead.
     </p>
   </div>
 
@@ -443,9 +435,9 @@
     <h3>A county is not a district</h3>
     <p>
       Each county file holds that county's contribution to the districts that overlap
-      it. Tarrant County touches seven districts, and some of them are barely in
-      Tarrant at all. This is correct, but it is easy to misread, and it points at
-      something bigger.
+      it. Tarrant County touches seven districts, and some of them barely touch
+      Tarrant. This is correct, but it is easy to misread, and it points to a bigger
+      question.
     </p>
   </div>
 </section>
@@ -455,10 +447,10 @@
 <section>
   <div class="eyebrow">The honest question</div>
   <div class="callout">
-    <h2>Districts are a fine starting point</h2>
+    <h2>Districts are a solid starting point</h2>
     <p>
       District level works. We can now put every cycle from 2016 to 2024 on the same
-      map and see how a place moved. That was the goal, and it is done.
+      map and see how a place moved. That was the goal, and the data is there.
     </p>
     <p>
       But a district is a big place. Knowing that one of Tarrant County's seven
@@ -467,18 +459,18 @@
       district is too coarse a unit to answer it.
     </p>
     <div class="pull">
-      Districts are a fine starting point.<br>
-      They are probably not good enough.
+      District level works.<br>
+      But is it granular enough?
     </div>
     <p>
       Precinct level is where the neighborhood view lives, and the method is
       identical: same interpolation, same leakage check, with a fixed precinct map as
-      the target instead of a district map. The hard part is scale. Thousands of
-      target shapes instead of thirty eight, across 236 counties.
+      the target instead of a district map. The hard part is scale: orders of
+      magnitude more target shapes, across the whole state.
     </p>
     <p>
-      We think the next real step is to pilot it on a county or two and find out
-      whether it delivers what we want before committing to the whole state.
+      The next step is to pilot it on a county or two and find out whether it
+      delivers what we want, before committing to the whole state.
     </p>
   </div>
 </section>
@@ -487,7 +479,7 @@
 
 <section>
   <div class="eyebrow">What is next</div>
-  <h2>Three tracks, three different people</h2>
+  <h2>Three tracks, three different skill sets</h2>
 
   <div class="tracks">
     <div class="track">
@@ -495,7 +487,7 @@
       <h3>A front end</h3>
       <p>
         Make the data explorable instead of a folder of CSVs. Pick a county or
-        district, see how it moved.
+        district, see how it has voted over time.
       </p>
       <div class="who">Front end, data viz, a creative eye. Ideas welcomed.</div>
     </div>
@@ -503,8 +495,7 @@
       <div class="track-tag"><a href="https://github.com/bluebonnet-data/bb-unified-election-data/issues/14" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(46,134,193,0.35);">Issue #14</a></div>
       <h3>The last 8 counties</h3>
       <p>
-        Precinct IDs the reconciler could not match. Some are near misses. At least
-        one is genuinely stubborn.
+        Precinct IDs the reconciler could not match. Some are nearly there. A few are harder.
       </p>
       <div class="who">Python, patience, a taste for puzzles.</div>
     </div>
